@@ -1,0 +1,68 @@
+---
+layout: default
+permalink: /index.html
+---
+<div class="scope-surface">
+    {% include masters/site-navigation.html %}
+
+    <div class="surface-content">
+        <div class="container-md">
+            {%- assign blog_entries = site.posts | where:"type", "articles" -%}
+            <header class="mb-lg-3 pb-lg-1 border-b-1 border-solid border-gray-200">
+                <div class="d-inline-flex flex-row flex-nowrap">
+                    <h1 class="text-sm font-interface weight-500 leading-1 text-gray-600 text-uppercase">
+                        Blog
+                    </h1>
+                    <span class="ml-sm-2 text-sm font-interface weight-400 leading-1 text-gray-600 text-uppercase">
+                        {%- assign entry_counter = 0 -%}
+                        {%- if blog_entries.size > 0 -%}
+                            {%- for entries in blog_entries -%} 
+                                {%- assign entry_counter = entry_counter | plus: 1 -%} 
+                            {%- endfor -%} 
+                            {%- if blog_entries.size == 1 -%}
+                            {{ entry_counter }} Post 
+                            {%- else -%} 
+                            {{ entry_counter }} Posts 
+                            {%- endif -%} 
+                            {%- else -%} 
+                            No Posts
+                        {%- endif -%}
+                    </span>                                     
+                </div>
+            </header>
+            <div class="mb-lg-3">
+                {%- if blog_entries.size > 0 -%}
+                {%- assign sort_by_year = blog_entries | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+                {%- for year in sort_by_year -%}
+                <div class="d-grid grid-cols-1 grid-md-cols-2 gap-x-1 mb-lg-3 pb-lg-1 border-b-1 border-solid border-gray-200 mb-last border-last">
+                    <h2 class="mb-lg-1 text-sm font-interface weight-500 leading-1 text-gray-600">{{ year.name }}</h2>
+                    <div>
+                        {%- for entry in year.items -%}
+                        <a href="{{ entry.url | relative_url }}" class="link d-block mb-lg-2">
+                            <h3 class="text-heading-6 font-interface weight-600 leading-1 width-limit">{{ entry.headline }}</h3>
+                            <div class="d-inline-flex flex-row flex-nowrap align-items-center">
+                                <time class="d-block text-sm font-interface weight-500 leading-1 text-gray-600">{{ entry.date | date: "%b %d, %Y" }}</time>
+                                <span class="content-before-bar text-sm font-interface weight-400 leading-1 text-gray-600">{{ entry.categories | first }}</span>
+                            </div>
+                        </a>
+                        {%- endfor -%}
+                    </div>
+                </div>
+                {%- endfor -%}
+                {%- else -%}
+                <div>
+                    <h4 class="text-heading-6 font-interface weight-600 leading-1">Nothing's Published?</h4>
+                    <p class="text-sm font-interface weight-400 leading-1">
+                        Relax. Posts are either being built or migrated.
+                    </p>
+                    <p class="text-sm font-interface weight-400 leading-1">
+                        Or… I'm really just procrastinating.
+                    </p>                    
+                </div>                
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+
+    {% include masters/site-footer.html %}
+</div>

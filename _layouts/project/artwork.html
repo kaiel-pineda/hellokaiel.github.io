@@ -1,0 +1,52 @@
+---
+layout: default
+---
+<div class="scope-surface">
+    {% include masters/site-navigation.html %}
+
+    <div class="surface-content">
+        <header>
+            <div class="container-md">
+                <div class="d-grid grid-cols-1 grid-md-cols-8 gap-x-1 gap-y-2">
+                    <div class="col-md-span-5">
+                        <div class="border-1 border-solid border-gray-200">
+                            <div class="px-lg-1 pt-lg-1 mb-lg-1">
+                                <div class="text-heading-6 font-content leading-1 mb-last">
+                                    {{ page.description | markdownify }}
+                                </div>
+                            </div>
+                            <div class="border-t-1 border-solid border-gray-200">
+                                <div class="p-lg-1">
+                                    <dl class="d-grid grid-md-descriptions mb-sm-3 mb-last">
+                                        <dt class="text-sm font-interface weight-500 leading-1">Category</dt>
+                                        <dd class="text-sm font-interface leading-1 text-gray-600">Photography</dd>
+                                    </dl>
+                                    <dl class="d-grid grid-md-descriptions mb-sm-3 mb-last">
+                                        <dt class="text-sm font-interface weight-500 leading-1">Discipline</dt>
+                                        <dd class="text-sm font-interface leading-1 text-gray-600">Visual Art</dd>
+                                    </dl>
+                                </div>                                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-span-3">
+                        <div class="border-1 border-solid border-gray-200">
+                            <div class="p-lg-1">
+                                <time class="d-block text-sm font-interface weight-500 leading-1 text-gray-600">{{ page.date | date: "%b %d, %Y" }}</time>
+                                <h1 class="text-heading-5 font-interface weight-600 leading-1 mb-sm-3">{{ page.headline | escape }}</h1>
+                                <h2 class="text-heading-6 font-interface weight-500 leading-1 text-gray-600">Solarized silver print</h2>
+                                <p class="text-sm font-interface leading-1 text-gray-600">10 × 7 3/4 in</p>
+                                <p class="text-sm font-interface leading-1 text-gray-600">10 × 7 3/4 in</p>
+                                <div class="border-t-1 border-solid border-gray-200 mt-lg-1 pt-sm-3">
+                                    <h3 class="text-heading-5 font-interface weight-500 leading-2">US$5,500</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    {% include masters/site-footer.html %}
+</div>

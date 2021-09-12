@@ -1,0 +1,395 @@
+---
+# Use a comment to ensure Jekyll reads the file to be transformed into CSS later
+# only main files contain this front matter, not partials.
+---
+
+@import "abstracts/variables";
+@import "abstracts/maps";
+@import "abstracts/functions";
+@import "base/reboot";
+@import "colors";
+@import "containers";
+@import "spacing";
+@import "displays";
+@import "borders";
+@import "typography";
+
+// hellokaiel.us 1.0.0
+
+html {
+    font-size: $font-size-sm;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: $font-size-base;
+    }
+}
+
+.page-404 {
+    background-color: #000;
+    color: #50de66;
+
+    .site-navigation {
+        margin: 0;
+        background-color: #000;
+        border-color: #50de66;
+        color: #50de66;
+    
+        .link:hover,
+        .link:focus {
+            color: #1c932e;
+        }
+
+        .logo {
+            border-color: #50de66;
+
+            .inner {
+                box-shadow: inset 0 0 0 24px #50de66;
+            }
+        }
+    }
+
+    footer {
+        border-color: #50de66;
+        
+        p {
+            color: #50de66;
+        }
+    }
+}
+
+.portfolio-navigation {
+    border-color: #212121;
+    background-color: #000;
+    color: #f5f5f5;
+
+    .logo {
+        border-color: #f5f5f5 !important;
+
+        .inner {
+            box-shadow: inset 0 0 0 24px #f5f5f5 !important;
+        }
+    }    
+}
+
+.link:hover,
+.link:focus {
+    color: #616161;
+}
+
+.text-xs {
+    font-size: .75rem;
+}
+
+.font-interface {
+    font-family: 'Roboto', "Franklin Gothic Medium", Tahoma, sans-serif;
+}
+
+.font-content {
+    font-family: 'Helvetica Now', Helvetica, Arial, sans-serif;
+}
+
+.fluid-img {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+
+.order-0 {
+    order: -1;
+}
+
+.width-limit {
+    max-width: 384px;
+}
+
+@media (min-width: 768px) {
+    .width-limit {
+        max-width: 480px;
+    }
+}
+
+.no-gutters {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media (min-width: 768px) {
+    .grid-md-endnotes {
+        grid-template-columns: minmax(min-content, 216px) minmax(min-content, 624px) auto;
+    }
+
+    .grid-md-descriptions {
+        grid-template-columns: minmax(min-content, 168px) auto;
+    }
+
+    .col-md-span-2 {
+        grid-column: span 2 / span 2;
+    }    
+    
+    .col-md-span-3 {
+        grid-column: span 3 / span 3;
+    }
+
+    .col-md-span-4 {
+        grid-column: span 4 / span 4;
+    }    
+
+    .col-md-span-5 {
+        grid-column: span 5 / span 5;
+    }
+    
+    .col-md-start-2 {
+        grid-column-start: 2;
+    }
+
+    .col-md-start-4 {
+        grid-column-start: 4;
+    }
+
+    .col-md-end-4 {
+        grid-column-end: 4;
+    }
+
+    .col-md-end-10 {
+        grid-column-end: 10;
+    }    
+}
+
+@media (min-width: 992px) {
+    .order-lg-1 {
+        order: 2;
+    }
+
+    .grid-lg-portfolio {
+        grid-template-columns: minmax(min-content, 624px) auto;
+    }
+
+    .grid-lg-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .col-lg-span-2 {
+        grid-column: span 2 / span 2;
+    }    
+
+    .col-lg-span-4 {
+        grid-column: span 4 / span 4;
+    }    
+}
+
+.gap-y-2 {
+    row-gap: 3rem;
+}
+
+.gap-y-4 {
+    row-gap: 6rem;
+}
+
+.gap-x-3 {
+    column-gap: 4.5rem;
+}
+
+.grid-md-endnotes p {
+    margin-bottom: .75rem;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.grid-md-endnotes ul {
+    list-style-type: circle;
+}
+
+.content-before-bar::before {
+    content: '―';
+    margin: 0 .25rem;
+}
+
+.content-before-hash::before {
+    content: '#';
+}
+
+.mb-last:last-of-type {
+    margin-bottom: 0;
+}
+
+.mr-last:last-of-type {
+    margin-right: 0;
+}
+
+.border-last:last-of-type {
+    border-bottom: 0;
+}
+
+.read-time {
+    height: rem(20px);
+    width: rem(20px);
+}
+
+.scope-surface {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100vh;
+
+    .surface-content {
+        flex: 1;
+    }
+}
+
+.page-description p {
+    margin-bottom: 1.5rem;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.bg-gray-100 + footer {
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+}
+
+.bg-monochrome-1 + footer {
+    background-color: #000;
+    border-color: #212121;
+
+    & p {
+        color: #f5f5f5;
+    }
+}
+
+.site-navigation {
+    top: 0;
+    position: sticky;
+    z-index: 1020;
+}
+
+.site-navigation .logo {
+    margin: rem(8px) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 32px;
+    width: 32px;
+    border: 2px solid #000;
+    border-radius: 50%;
+
+    & .ring {
+        position: absolute;
+        height: 64px;
+        width: 64px;
+        border: solid 4px #eee;
+        border-radius: 50%;
+        animation: logo-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+        pointer-events: none;
+    }
+
+    & .inner {
+        height: 24px;
+        width: 24px;
+        box-shadow: inset 0 0 0 24px #000;
+        border-radius: 50%;
+        animation: logo-pulse 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+    }
+
+    &:focus .inner, &:hover .inner {
+        display: none;
+    }
+
+    @keyframes logo-ring {
+        0% {
+            -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+        }
+    
+        60% {
+            opacity: 0;
+        }
+    
+        70% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 0;
+        }
+    
+        100% {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 0;
+        }
+    }      
+    
+    @keyframes logo-pulse {
+        0% {
+            transform: scale(0.5);
+        }
+    
+        100% {
+            transform: scale(1);
+        }
+    }    
+}
+
+// Flickity
+.carousel-cell {
+    width: 100%;
+    /* center images in cells with flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  .carousel.is-fullscreen .carousel-cell {
+    height: 100%;
+  }
+
+  .carousel-cell-image {
+    display: block;
+    max-height: 100%;
+  }
+
+  .carousel.is-fullscreen .carousel-cell-image {
+      max-width: 100%;
+  }
+  
+  .flickity-enabled.is-fullscreen {
+    display: block;
+    background: #212121;
+    padding-bottom: 0;
+    z-index: 2060;
+  }
+  
+  .flickity-page-dots {
+      bottom: 40px;
+  }
+  
+  .flickity-page-dots .dot {
+      height: 4px;
+      width: 40px;
+      margin: 0;
+      border-radius: 0;
+      background: #fff;                
+  }
+  
+  .flickity-button:disabled {
+      display: none;
+  }
+  .carousel-cell-image {
+      transition: opacity 0.4s;
+      animation: hintloading 2s ease-in-out 0s infinite reverse;
+      -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;                
+  }            
+  .carousel-cell-image.flickity-lazyloaded,
+  .carousel-cell-image.flickity-lazyerror {
+      animation: none;
+      -webkit-animation: none;
+  }

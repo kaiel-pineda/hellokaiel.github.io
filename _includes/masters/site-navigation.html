@@ -1,0 +1,15 @@
+<nav role="navigation" class="mb-lg-6 border-b-1 border-solid border-gray-200 bg-monochrome-0 site-navigation">
+    <div class="container-md">
+        <div class="d-flex align-items-center justify-content-space-between">
+            <a href="{{ "/" | relative_url }}" class="logo">
+                <div class="ring"></div>
+                <div class="inner"></div>
+            </a>
+            <div class="d-flex flex-row flex-nowrap">
+                {%- for link in site.data.masters.site-navigation -%}
+                    <a href="{{ link.url }}" class="link mr-lg-1 mr-last text-sm font-interface weight-500 leading-1">{{ link.title }}</a>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</nav>

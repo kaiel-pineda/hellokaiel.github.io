@@ -1,0 +1,47 @@
+date_format:            "%b %-d, %Y"
+disable_disk_cache:     true
+
+description:            >
+                        Hello Kaiel is the personal website of Karl Pineda.
+
+permalink:              /:categories/:title/
+
+permalink:              "/:title/"
+paginate_path:          "/page:num"
+
+sass:
+  sass_dir:             _scss
+  style:                :compressed
+  sourcemap:            never
+
+collections:
+  pages:
+    output:             true
+    permalink:          /:path/
+
+defaults:
+  - scope:
+      path:             "_pages"
+    values:
+      type:             "pages"
+  - scope:
+      path:             "_posts/articles"
+    values:
+      type:             "articles"
+  - scope:
+      path:             "_posts/projects"
+    values:
+      type:             "projects"
+
+collections:
+  category:
+    output:             true
+  pages:
+    output:             true
+    permalink:          /:path/
+
+exclude:
+  - .git
+  - .jekyll-cache
+  - .Gemfile
+  - .Gemfile.lock

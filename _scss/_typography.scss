@@ -1,0 +1,55 @@
+// text alignments
+$text-alignments: ("left", "right", "center");
+@each $text-align in $text-alignments {
+  .text-#{$text-align} {
+    text-align: #{$text-align};
+  }
+}
+
+//font-sizes
+@each $size-class, $size in $font-sizes {
+  $size-calculated: rem($size);
+
+  .text-#{$size-class} {
+    font-size: #{$size-calculated};
+  }
+}
+
+// font weights
+$font-weights: ("300", "400", "500", "600");
+@each $weight in $font-weights {
+  .weight-#{$weight} {
+    font-weight: #{$weight};
+  }
+}
+
+// letter-spacing
+$letter-spacing: (
+  tighter: "-0.05em", 
+  tight: "-0.025em", 
+  wide: "0.025em", 
+  wider: "0.05em", 
+  widest: "0.1em"
+);
+
+@each $track-class, $track in $letter-spacing {
+  .tracking-#{$track-class} {
+    letter-spacing: #{$track};
+  }
+}
+
+//line heights
+@each $height in $line-heights {
+  $line-height-calculated: rem($height * $line-height-base);
+  .leading-#{$height} {
+    line-height: #{$line-height-calculated};
+  }
+}
+
+//text transform
+$text-transformations: ("uppercase", "capitalize");
+@each $transformation in $text-transformations {
+  .text-#{$transformation} {
+    text-transform: #{$transformation};
+  }
+}

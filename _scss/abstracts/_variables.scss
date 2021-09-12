@@ -1,0 +1,33 @@
+
+$font-size-base:        16px;
+$font-size-sm:          14px;
+
+// ratio of 1.2 (minor third), except the last 2.
+$font-sizes: (
+    heading-1: $font-size-base * 2.5,
+    heading-2: $font-size-base * 2,
+    heading-3: $font-size-base * 1.75,
+    heading-4: $font-size-base * 1.5,
+    heading-5: $font-size-base * 1.25,
+    heading-6: $font-size-base,
+    lg: $font-size-base * 1.125,
+    sm: $font-size-base * .875
+);
+
+$line-height-base:      24px;
+
+$line-heights:          (1, 2, 3);
+
+$grid-container-widths: (
+    sm:                 672px,
+    md:                 1152px,
+    fl:                 100%
+);
+
+$spacing-base:          4px;
+$spacing-lg:            24px;
+
+$spacing-amounts-sm:       (1, 2, 3, 4, 5, 6);
+$spacing-amounts-lg:       (1, 2, 3, 4, 5, 6);
+
+$spacing-gap-amounts:      (1);

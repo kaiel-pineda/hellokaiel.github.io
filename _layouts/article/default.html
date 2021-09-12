@@ -1,0 +1,138 @@
+---
+layout: default
+---
+<div class="scope-surface">
+    {% include masters/site-navigation.html %}
+
+    <div class="surface-content">
+        <header class="mb-lg-2">
+            <div class="container-sm">
+                <div class="mb-lg-1">
+                    <time class="d-block text-sm font-interface weight-500 leading-1 text-gray-600">{{ page.date | date: "%b %d, %Y" }}</time>
+                    <h1 class="text-heading-3 font-interface weight-600 leading-2">{{ page.headline | escape }}</h1>
+                    {%- if page.deck-%}
+                    <h2 class="text-heading-4 font-interface weight-400 leading-2 text-gray-600">{{ page.deck | escape }}</h2>
+                    {%- endif -%}
+                    {%- if page.lead-%}
+                    <p class="my-lg-1 text-lg font-content leading-1">{{ page.lead | escape }}</p>
+                    {%- endif -%}
+                    {%- if page.links -%}
+                    <div class="d-flex flex-col flex-nowrap">
+                        {%- for link in page.links -%}
+                        <a href="{{ link.url }}" class="d-block py-sm-3 text-sm font-interface weight-500 leading-1 text-uppercase border-b-1 border-solid border-gray-200 text-gray-600 border-last">{{ link.title }}</a>
+                        {%- endfor -%}
+                    </div>
+                    {%- endif -%}                    
+                </div>
+                <div class="d-flex flex-row flex-nowrap justify-content-space-between">
+                    <div>
+                        <div class="d-flex flex-row flex-nowrap align-items-center">
+                            {%- assign words = content | number_of_words -%}
+                            <svg class="read-time" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <g>
+                                    <rect fill="none" height="24" width="24" x="0"/>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12.5,7H11v6l5.2,3.2l0.8-1.3l-4.5-2.7V7z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                            <p class="ml-sm-2 text-sm font-interface weight-500 leading-1 text-gray-600">
+                            {%- if words < 180 -%}
+                            Less Than A Minute Read
+                            {%- elsif words < 360 -%}
+                            A Minute Read
+                            {%- else -%}
+                            {{ words | divided_by: 180 }} Minutes Read
+                            {%- endif -%}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </header>
+        <div class="mb-lg-5">
+            {{ content }}
+
+            {%- if page.hashtags -%}
+            <div class="mt-lg-2">
+                <div class="container-sm">
+                    <div class="d-inline-flex flex-row flex-nowrap">
+                        {%- for tag in page.hashtags -%}
+                        <p class="px-sm-2 py-sm-1 text-sm font-interface weight-400 leading-1 text-gray-700 bg-gray-200 mr-sm-2 mr-last content-before-hash">{{ tag }}</p>
+                        {%- endfor -%}
+                    </div>
+                </div>
+            </div>
+            {%- endif -%}
+        </div>
+        <footer>
+            {%- if page.endnotes -%}
+            <div class="mb-lg-4">
+                <div class="container-md">
+                    {%- for block in page.endnotes -%}
+                    <div class="d-grid grid-cols-1 grid-md-endnotes gap-x-1 py-sm-3 border-t-1 border-solid border-gray-200">
+                        <h6 class="text-sm font-interface weight-400 leading-1 text-gray-600">{{ block.title }}</h6>
+                        <div>
+                            {%- case block.list -%}
+                                {%- when 'ordered' -%}
+                                <ol>
+                                    {%- for items in block.items -%}
+                                    <li class="mb-sm-3 mb-last text-sm font-interface weight-400 leading-1 text-gray-600">
+                                        {{ items.item | markdownify }}
+                                    </li>
+                                    {%- endfor -%}
+                                </ol>
+                            {%- when 'unordered' -%}
+                                <ul>
+                                    {%- for items in block.items -%}
+                                    <li class="mb-sm-3 mb-last text-sm font-interface weight-400 leading-1 text-gray-600">
+                                        {{ items.item | markdownify }}
+                                    </li>
+                                    {%- endfor -%}
+                                </ul>    
+                            {%- endcase -%}
+                        </div>
+                    </div>
+                    {%- endfor -%}
+                </div>
+            </div>
+            {%- endif -%}
+        </footer>
+    </div>
+    
+    <aside class="bg-gray-100 py-lg-3">
+        <div class="container-sm">
+            <header class="mb-lg-2 pb-lg-1 border-b-1 border-solid border-gray-300">
+                <h3 class="text-sm font-interface weight-500 leading-1 text-gray-600 text-uppercase">
+                    Also In This Orbit
+                </h3>
+            </header>
+            <div>
+                {%- capture category -%}{{ page.categories | first }}{%- endcapture -%}
+                {%- if site.categories[category].size > 1 -%}
+                {%- for entry in site.categories[category] limit: 4 -%}
+                {%- if entry.title != page.title -%}
+                <a href="{{ entry.url | relative_url }}" class="d-block mb-lg-2 border-last mb-last">
+                    <h3 class="text-heading-6 font-interface weight-600 leading-1 width-limit">{{ entry.headline }}</h3>
+                    <div class="d-inline-flex flex-row flex-nowrap align-items-center">
+                        <time class="d-block text-sm font-interface weight-500 leading-1 text-gray-600">{{ entry.date | date: "%b %d, %Y" }}</time>
+                        <span class="content-before-bar text-sm font-interface weight-400 leading-1 text-gray-600">{{ entry.categories | first }}</span>
+                    </div>
+                </a>
+                {%- endif -%}
+                {%- endfor -%}
+                {%- else -%}
+                <div>
+                    <h4 class="text-heading-6 font-interface weight-600 leading-1">That's All Folks!</h4>
+                    <p class="text-sm font-interface weight-400 leading-1">
+                        It looks like nothing else is under this category.
+                    </p>
+                </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </aside>
+    {% include masters/site-footer.html %}
+</div>

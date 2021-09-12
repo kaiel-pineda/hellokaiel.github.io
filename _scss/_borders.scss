@@ -1,0 +1,29 @@
+@for $border-width from 1 to 7 {
+    .border-#{$border-width} {
+        border-width: #{$border-width}px;
+    }
+    
+    .border-t-#{$border-width} {
+        border-width: 0;
+        border-top-width: #{$border-width}px;
+    }
+
+    .border-r-#{$border-width} {
+        border-width: 0;
+        border-right-width: #{$border-width}px;
+    } 
+    
+    .border-b-#{$border-width} {
+        border-width: 0;
+        border-bottom-width: #{$border-width}px;
+    } 
+   
+    .border-l-#{$border-width} {
+        border-width: 0;
+        border-left-width: #{$border-width}px;
+    }     
+}
+
+.border-solid {
+    border-style: solid;
+}
