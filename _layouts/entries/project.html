@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<div class="surface-scope">
+    {% include masters/nav-master.html %}
+
+    <div class="surface-content m-t-30">
+        <header class="project-header">
+            <div class="c-md">
+                <div class="project-block">
+                    <div class="header-meta">
+                        <time class="meta-date">{{ page.date | date: "%b %d, %Y" }}</time>
+                        <h1 class="meta-headline">{{ page.headline | escape }}</h1>
+                    </div>
+                </div>
+                <div class="project-block">
+                    <div class="header-meta">
+                        <div class="meta-content">
+                            {{ page.description | markdownify }}
+                        </div>
+                    </div>
+                    <div class="header-meta">
+                        <div class="header-additions">
+                            <dl class="description-block">
+                                <dt class="meta-term">Category</dt>
+                                <dd class="meta-details">{{ page.categories }}</dd>
+                            </dl>
+                            <dl class="description-block">
+                                <dt class="meta-term">Discipline</dt>
+                                <dd class="meta-details">{{ page.discipline }}</dd>
+                            </dl>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="project-entry">
+        {{ content }}
+    </div>
+    {% include masters/footer-master.html %}
+</div>

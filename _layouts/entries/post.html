@@ -1,0 +1,79 @@
+---
+layout: default
+---
+<div class="surface-scope">
+    {% include masters/nav-master.html %}
+
+    <div class="surface-content m-t-30">
+        <header class="post-header">
+            <div class="c-sm">
+                <div class="header-meta">
+                    <time class="meta-date">{{ page.date | date: "%b %d, %Y" }}</time>
+                    <h1 class="meta-headline">{{ page.headline | escape }}</h1>
+                </div>
+                <div class="header-additions">
+                    <div class="meta-read-time">
+                        <div class="d-inline-flex flex-rw flex-nowrap items-center gap-x-3">
+                            <svg class="read-time" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <g>
+                                    <rect fill="none" height="24" width="24" x="0"/>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12.5,7H11v6l5.2,3.2l0.8-1.3l-4.5-2.7V7z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                            <h2>
+                            {%- assign words = content | number_of_words -%}    
+                            {%- if words < 180 -%}
+                                Less Than A Minute Read
+                            {%- elsif words < 360 -%}
+                                A Minute Read
+                            {%- else -%}
+                            {{ words | divided_by: 180 }} Minutes Read
+                            {%- endif -%}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="post-entry">
+            
+            {{ content }}
+
+            <footer class="post-footer"></footer>
+        </div>
+    </div>
+
+    <aside class="post-related">
+        <div class="c-sm">
+            <header class="related-header">
+                <h1 class="display-1">Also In This Orbit</h1>
+            </header>
+            <div class="related-content">
+                {%- capture category -%}{{ page.categories | first }}{%- endcapture -%}
+                {%- if site.categories[category].size > 1 -%}
+                    {%- for entry in site.categories[category] limit: 4 -%}
+                    {%- if entry.title != page.title -%}
+                        <a href="{{ entry.url | relative_url }}">
+                            <h2 class="meta-headline">{{ entry.headline }}</h2>
+                            <div class="d-inline-flex flex-nowrap items-baseline gap-x-1">
+                                <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
+                                <h2 class="meta-categories">{{ entry.categories | first }}</h2>
+                            </div>
+                        </a>
+                    {%- endif -%}
+                    {%- endfor -%}
+                {%- else -%}
+                <h1 class="text-md font-interface text-600 text-leading-1">That's All Folks!</h1>
+                <p class="text-sm font-interface text-400 text-leading-1">It looks like nothing else is under this category.</p>
+                {%- endif -%}
+            </div>
+        </div>
+    </aside>
+    
+    {% include masters/footer-master.html %}
+</div>

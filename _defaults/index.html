@@ -1,0 +1,57 @@
+---
+layout: default
+permalink: /
+---
+<div class="surface-scope">
+    {% include masters/nav-master.html %}
+
+    {%- assign blog_entries = site.posts | where:"type", "blog" -%}
+    <div class="surface-content m-y-30">
+        <div class="c-md">
+            <header class="page-header">
+                <div class="d-flex flex-nowrap items-baseline gap-x-2">
+                    <h1 class="display-1">Blog</h1>
+                    <h1 class="text-sm font-interface text-400 color-600 text-uppercase">
+                    {%- assign entry_counter = 0 -%}
+                    {%- if blog_entries.size > 0 -%}
+                        {%- for entries in blog_entries -%}
+                            {%- assign entry_counter = entry_counter | plus: 1 -%}
+                        {%- endfor -%}
+                        {%- if blog_entries.size == 1 -%}
+                            {{ entry_counter }} Post
+                        {%- else -%}
+                            {{ entry_counter }} Posts
+                        {%- endif -%}
+                    {%- else -%}
+                        No Posts
+                    {%- endif -%}
+                    </h1>
+                </div>
+            </header>
+
+            <main class="blog-main">
+                {%- assign year_sort = blog_entries | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+                {%- for year in year_sort -%}
+                <div class="main-block">
+                    <div>
+                        <h3 class="meta-date">{{ year.name }}</h3>
+                    </div>
+                    <div>
+                        {%- for entry in year.items -%}
+                        <a href="{{ entry.url | relative_url }}">
+                            <h2 class="meta-headline">{{ entry.headline }}</h2>
+                            <div class="d-inline-flex flex-nowrap items-center gap-x-1">
+                                <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
+                                <h2 class="meta-categories">{{ entry.categories | first }}</h2>
+                            </div>
+                        </a>
+                        {%- endfor -%}
+                    </div>
+                </div>
+                {%- endfor -%}
+            </main>
+        </div>
+    </div>
+
+    {% include masters/footer-master.html %}
+</div>

@@ -1,0 +1,38 @@
+---
+layout: default
+---
+<div class="surface-scope">
+    {% include masters/nav-master.html %}
+
+    <div class="surface-content m-y-30">
+        <div class="c-md">
+            <header class="page-header">
+                <h1 class="display-1">Collections</h1>
+            </header>
+
+            {%- assign collections_entries = site.posts | where:"type", "collections" -%}
+            {%- assign year_sort = collections_entries| group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+            <main class="collections-main">
+            {%- for year in year_sort -%}
+                {%- for entry in year.items -%}
+                <a href="{{ entry.url | relative_url }}">
+                    <div class="self-start">
+                        <h2 class="meta-headline">{{ entry.headline }}</h2>
+                        <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
+                    </div>
+                    <div class="d-flex flex-nowrap justify-between items-center gap-x-1 self-end">
+                        <h2 class="meta-categories">{{ entry.categories | first }}</h2>
+                        <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
+                            <div class="meta-color-box" style="background-color: {{ entry.color }}"></div>
+                            <h2 class="meta-color">{{ entry.color }}</h2>
+                        </div>
+                    </div>
+                </a>
+                {%- endfor -%}
+            {%- endfor -%}
+            </main>
+        </div>
+    </div>
+
+    {% include masters/footer-master.html %}
+</div>
