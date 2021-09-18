@@ -2,6 +2,13 @@
 <html lang="en-US" dir="ltr">
     <head>
         <meta charset="utf-8">
+        <title>
+            {%- if page.url == "/" -%}
+                Hello Kaiel
+            {%- else -%}
+                {{ page.title }} | Hello Kaiel
+            {%- endif -%}
+        </title>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
         <link rel="apple-touch-icon" sizes="180x180" href="{{ 'public/apple-touch-icon.png?v=2' | relative_url }}">
