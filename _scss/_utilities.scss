@@ -117,7 +117,7 @@
     font-size: .875rem;
 }
 
-.c-sm, .c-md, .c-fl {
+.c-sm, .c-ml, .c-md, .c-fl {
     width: 100%;
     padding: 0 1.5rem;
     margin-right: auto;
@@ -126,6 +126,11 @@
 
 .c-sm {
     max-width: 672px;
+}
+
+//medium-small
+.c-ml {
+    max-width: 960px;
 }
 
 .c-md {
