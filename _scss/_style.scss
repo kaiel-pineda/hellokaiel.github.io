@@ -415,7 +415,7 @@ time {
 
 @media (min-width: 992px) { 
     .project-block {
-        grid-template-columns: minmax(min-content, 672px) auto;
+        grid-template-columns: minmax(min-content, 720px) auto;
         column-gap: 1.5rem;
     }
 }
