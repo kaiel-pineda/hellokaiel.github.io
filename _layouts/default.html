@@ -1,16 +1,17 @@
 <!doctype html>
+{%- assign cache_bust = site.time | date:'?v=%s' %}
+<!--
+    😎 Hello Kaiel build {{ cache_bust | remove: '?v=' }}
+    🐉 Abandon all hope, ye who enter here. Here be dragons.
+-->
 <html lang="en-US" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title>
-            {%- if page.url == "/" or "/404" -%}
-                Hello Kaiel
+            {%- if page.path contains '_posts' -%}
+                {{ page.headline }} | Hello Kaiel 
             {%- else -%}
-                {%- if page.path contains "_posts" -%}
-                    {{ page.headline }} | Hello Kaiel
-                {%- else -%}
-                    {{ page.title }} | Hello Kaiel
-                {%- endif -%}    
+                Hello Kaiel
             {%- endif -%}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -27,7 +28,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ "/assets/css/stylesheet.min.css" | relative_url }}">
+        <link rel="stylesheet" href="{{ "/assets/css/stylesheet.min.css" | relative_url | append: cache_bust }}">
         <link rel="stylesheet" href="{{ 'assets/css/vendors/flickity.min.css' | relative_url }}">
 
         <meta name="msapplication-TileColor" content="#f5f5f5">

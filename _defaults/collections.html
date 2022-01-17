@@ -23,8 +23,9 @@ layout: default
                     <div class="d-flex flex-nowrap justify-between items-center gap-x-1 self-end">
                         <h2 class="meta-categories">{{ entry.categories | first }}</h2>
                         <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                            <div class="meta-color-box" style="background-color: {{ entry.color }}"></div>
-                            <h2 class="meta-color">{{ entry.color }}</h2>
+                            {%- for color in entry.colors -%}
+                                <div class="meta-color-box" style="background-color: {{ color }}"></div>
+                            {%- endfor -%}
                         </div>
                     </div>
                 </a>
