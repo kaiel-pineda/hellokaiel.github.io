@@ -373,8 +373,6 @@ time {
 // Entry Section Layout
 
 .entry {
-    margin-bottom: 6rem;
-
     .meta-content {
         font-size: 1.125rem;
         font-family: var(--content-font-family);
@@ -423,6 +421,10 @@ time {
     }
 }
 
+.blog-post-content {
+    margin-bottom: 6rem;
+}
+
 .blog-post-related {
     padding: 4.5rem 0;
     background-color: #{'rgb(var(--background-color))'};
@@ -463,6 +465,8 @@ time {
 // Collections Project Layout
 
 .collections-project-header {
+    margin-bottom: 6rem;
+    
     .project-block {
         display: grid;
         grid-template-columns: 1fr;
