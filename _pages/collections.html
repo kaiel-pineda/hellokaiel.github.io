@@ -2,7 +2,7 @@
 layout: default
 ---
 <div class="surface-scope">
-    {% include masters/nav-master.html %}
+    {% include masters/master-navigation.html %}
 
     <div class="surface-content m-y-30">
         <div class="c-md">
@@ -17,14 +17,14 @@ layout: default
                 {%- for entry in year.items -%}
                 <a href="{{ entry.url | relative_url }}">
                     <div class="self-start">
-                        <h2 class="meta-headline">{{ entry.headline }}</h2>
+                        <h2 class="meta-headline">{{ entry.title }}</h2>
                         <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
                     </div>
                     <div class="d-flex flex-nowrap justify-between items-center gap-x-1 self-end">
                         <h2 class="meta-categories">{{ entry.categories | first }}</h2>
                         <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
                             {%- for color in entry.colors -%}
-                                <div class="meta-color-box" style="background-color: {{ color }}"></div>
+                                <div class="meta-palette" style="background-color: {{ color }}"></div>
                             {%- endfor -%}
                         </div>
                     </div>
@@ -35,5 +35,5 @@ layout: default
         </div>
     </div>
 
-    {% include masters/footer-master.html %}
+    {% include masters/master-footer.html %}
 </div>

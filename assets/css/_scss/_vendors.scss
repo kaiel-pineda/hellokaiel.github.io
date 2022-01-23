@@ -1,0 +1,65 @@
+// Flickity
+.carousel figcaption {
+    margin-top: .75rem;
+    font-size: .875rem;
+    font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;    
+    line-height: 1.5rem;
+    text-align: center;
+    color: #f5f5f5;
+}
+
+.carousel-cell {
+    width: 100%;
+    /* center images in cells with flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel.is-fullscreen .carousel-cell {
+    height: 100%;
+}
+
+.carousel-cell-image {
+    display: block;
+    max-height: 100%;
+}
+
+.carousel.is-fullscreen .carousel-cell-image {
+    max-width: 100%;
+}
+
+.flickity-enabled.is-fullscreen {
+    display: block;
+    background: #212121 !important;
+    padding-bottom: 0 !important;
+    z-index: 9999 !important;
+}
+
+.flickity-page-dots {
+    bottom: 40px;
+}
+
+.flickity-page-dots .dot {
+    height: 4px;
+    width: 40px;
+    margin: 0;
+    border-radius: 0;
+    background: #ffffff;                
+}
+
+.flickity-button:disabled {
+    display: none;
+}
+
+.carousel-cell-image {
+    transition: opacity 0.4s;
+    animation: hintloading 2s ease-in-out 0s infinite reverse;
+    -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;                
+}
+
+.carousel-cell-image.flickity-lazyloaded,
+.carousel-cell-image.flickity-lazyerror {
+    animation: none;
+    -webkit-animation: none;
+}

@@ -1,7 +1,7 @@
 <!doctype html>
 {%- assign cache_bust = site.time | date:'?v=%s' %}
 <!--
-    😎 Hello Kaiel build {{ cache_bust | remove: '?v=' }}
+    🛠️ Hello Kaiel build {{ cache_bust | remove: '?v=' }}
     🐉 Abandon all hope, ye who enter here. Here be dragons.
 -->
 <html lang="en-US" dir="ltr">
@@ -9,7 +9,7 @@
         <meta charset="utf-8">
         <title>
             {%- if page.path contains '_posts' -%}
-                {{ page.headline }} | Hello Kaiel 
+                {{ page.title }} | Hello Kaiel 
             {%- else -%}
                 Hello Kaiel
             {%- endif -%}
@@ -35,14 +35,14 @@
         <meta name="msapplication-config" content="{{ 'public/browserconfig.xml?v=2' | relative_url }}">
         <meta name="theme-color" content="#eeeeee">        
     </head>
-    <body>
+    <body class="default-theme">
         
         {{ content }}
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <script src="{{ 'assets/js/vendors/flickity.pkgd.min.js' | relative_url }}"></script>
-        <script src="{{ "/assets/js/main.min.js" | relative_url }}"></script>
+        <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
         {%- if page.layout == "entries/project" -%}
         <script src="{{ 'assets/js/project.min.js' | relative_url }}"></script>
         {%- endif -%}        

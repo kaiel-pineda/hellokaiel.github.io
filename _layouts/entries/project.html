@@ -2,24 +2,26 @@
 layout: default
 ---
 <div class="surface-scope">
-    {% include masters/nav-master.html %}
+    {% include masters/master-navigation.html %}
 
     <div class="surface-content m-t-30">
-        <header class="project-header">
+        <header class="collections-project-header">
             <div class="c-ml">
                 <div class="project-block">
-                    <div class="header-meta">
+                    <div class="project-meta-container">
                         <time class="meta-date">{{ page.date | date: "%b %d, %Y" }}</time>
-                        <h1 class="meta-headline">{{ page.headline | escape }}</h1>
+                        <h1 class="meta-headline">{{ page.title | escape }}</h1>
                     </div>
                 </div>
                 <div class="project-block">
-                    <div class="header-meta">
-                        <div class="meta-content">
-                            {{ page.description | markdownify }}
+                    <div class="project-meta-container">
+                        <div class="entry">
+                            <div class="meta-content">
+                                {{ page.description | markdownify }}
+                            </div>
                         </div>
                     </div>
-                    <div class="header-meta">
+                    <div class="project-meta-container">
                         <div class="header-additions">
                             <dl class="description-block">
                                 <dt class="meta-term">Category</dt>
@@ -36,8 +38,11 @@ layout: default
         </header>
     </div>
 
-    <div class="project-entry">
-        {{ content }}
+    <div class="collections-project-showcase">
+        <div class="entry">
+            {{ content }}
+        </div>
     </div>
-    {% include masters/footer-master.html %}
+
+    {% include masters/master-footer.html %}
 </div>

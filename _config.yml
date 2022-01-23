@@ -1,50 +1,33 @@
-date_format:            "%b %-d, %Y"
-disable_disk_cache:     true
+disable_disk_cache: true
 
-permalink:              /:categories/:title/
-permalink:              "/:title/"
-paginate_path:          "/page:num"
+date_format: "%b %-d, %Y"
+
+permalink: "/:title/"
+paginate_path: "/page:num"
 
 sass:
-  sass_dir:             _scss
-  style:                :compressed
-  sourcemap:            never
+  sass_dir: assets/css/_scss
+  style: :compressed
+  sourcemap: never
 
 collections:
-  defaults:
-    output:             true
-    permalink:          /:path/
   pages:
-    output:             true
-    permalink:          /:path/
+    output: true
+    permalink: /:path/
 
 defaults:
   - scope:
-      path:             "_defaults"
+      path: "_pages"
     values:
-      type:             "defaults"
+      type: "pages"
   - scope:
-      path:             "_pages"
+      path: "_posts/blog"
     values:
-      type:             "pages"
+      type: "blog"
   - scope:
-      path:             "_posts/blog"
+      path: "_posts/collections"
     values:
-      type:             "blog"
-  - scope:
-      path:             "_posts/collections"
-    values:
-      type:             "collections"
-
-collections:
-  category:
-    output:             true
-  defaults:
-    output:             true
-    permalink:          /:path/    
-  pages:
-    output:             true
-    permalink:          /:path/
+      type: "collections"
 
 exclude:
   - .git

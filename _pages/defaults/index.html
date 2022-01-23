@@ -3,7 +3,7 @@ layout: default
 permalink: /
 ---
 <div class="surface-scope">
-    {% include masters/nav-master.html %}
+    {% include masters/master-navigation.html %}
 
     {%- assign blog_entries = site.posts | where:"type", "blog" -%}
     <div class="surface-content m-y-30">
@@ -39,7 +39,7 @@ permalink: /
                     <div>
                         {%- for entry in year.items -%}
                         <a href="{{ entry.url | relative_url }}">
-                            <h2 class="meta-headline">{{ entry.headline }}</h2>
+                            <h2 class="meta-headline">{{ entry.title }}</h2>
                             <div class="d-inline-flex flex-nowrap items-center gap-x-1">
                                 <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
                                 <h2 class="meta-categories">{{ entry.categories | first }}</h2>
@@ -53,5 +53,5 @@ permalink: /
         </div>
     </div>
 
-    {% include masters/footer-master.html %}
+    {% include masters/master-footer.html %}
 </div>
