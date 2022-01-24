@@ -10,6 +10,7 @@
 html {
     -moz-tab-size: 4;
     tab-size: 4;
+    height: 100%
 }
 
 body {
@@ -20,7 +21,8 @@ body {
     line-height: inherit;
     text-align: left;
     -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);    
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%
 }
 
 // Add the correct height in Firefox.
