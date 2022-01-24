@@ -29,13 +29,17 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ "/assets/css/stylesheet.min.css" | relative_url | append: cache_bust }}">
+        <script>
+            localStorage.getItem('theme') && 
+            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'))
+        </script>
         <link rel="stylesheet" href="{{ 'assets/css/vendors/flickity.min.css' | relative_url }}">
 
         <meta name="msapplication-TileColor" content="#f5f5f5">
         <meta name="msapplication-config" content="{{ 'public/browserconfig.xml?v=2' | relative_url }}">
         <meta name="theme-color" content="#eeeeee">        
     </head>
-    <body class="default-theme">
+    <body>
         
         {{ content }}
 

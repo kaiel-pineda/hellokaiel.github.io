@@ -1,9 +1,3 @@
-:root {
-    --headings-font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
-    --content-font-family: "Helvetica Now", Helvetica, Arial, sans-serif;
-    scroll-behavior: smooth;
-}
-
 @font-face {
     font-family: 'Helvetica Now';
     font-style: normal;
@@ -12,19 +6,10 @@
     src:url("../fonts/HelveticaNowVar.woff2") format('woff2-variations');
 }
 
-html {
-    font-size: 14px;
-}
-
-@media (min-width: 768px) { 
-    html {
-        font-size: 16px;
-    }
-}
-
-// ADDITIONAL EDITS
-// Light
-.default-theme {
+:root {
+    --headings-font-family: "Roboto", "Franklin Gothic Medium", Tahoma, sans-serif;
+    --content-font-family: "Helvetica Now", Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
     --link-color: 48, 79, 254;
     --link-focus-color: 13, 71, 161;
     --border-color: 238, 238, 238;
@@ -35,6 +20,78 @@ html {
 
     .navigation-picasso {
         --background-color: 245, 245, 245;
+        --border-color: 224, 224, 224;
+
+        .picasso-item {
+            --border-color: 97, 97, 97;
+            
+            &.is-active {
+                --border-color: 48, 79, 254;
+            }
+        }
+    }
+
+    .blog-post-related,
+    .blog-post-related + .master-footer {
+        --border-color: 224, 224, 224;
+        --background-color: 238, 238, 238;
+        --secondary-text-color: 97, 97, 97;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --link-color: 48, 79, 254;
+        --link-focus-color: 13, 71, 161;
+        --border-color: 66, 66, 66;
+        --background-color: 34, 34, 34;
+        --primary-text-color: 245, 245, 245;
+        --secondary-text-color: 189, 189, 189;
+        --branding-color: 255, 255, 255;
+    
+        .navigation-picasso {
+            --background-color: 59, 59, 59;
+            --border-color: 97, 97, 97;
+    
+            .picasso-item {
+                --border-color: 97, 97, 97;
+                
+                &.is-active {
+                    --border-color: 48, 79, 254;
+                }
+            }
+        }
+    
+        .blog-post-related,
+        .blog-post-related + .master-footer {
+            --border-color: 66, 66, 66;
+            --background-color: 29, 29, 29;
+            --secondary-text-color: 189, 189, 189;
+        }
+    }
+}
+
+// Light
+[data-theme='default-theme'] {
+    --link-color: 48, 79, 254;
+    --link-focus-color: 13, 71, 161;
+    --border-color: 238, 238, 238;
+    --background-color: 255, 255, 255;
+    --primary-text-color: 33, 33, 33;
+    --secondary-text-color: 117, 117, 117;
+    --branding-color: 0, 0, 0;
+
+    .navigation-picasso {
+        --background-color: 245, 245, 245;
+        --border-color: 224, 224, 224;
+
+        .picasso-item {
+            --border-color: 97, 97, 97;
+            
+            &.is-active {
+                --border-color: 48, 79, 254;
+            }
+        }
     }
 
     .blog-post-related,
@@ -51,35 +108,43 @@ html {
 }
 
 // Dark
-.dark-theme {
-    display: block;
-}
+[data-theme='dark-theme'] {
+    --link-color: 48, 79, 254;
+    --link-focus-color: 13, 71, 161;
+    --border-color: 66, 66, 66;
+    --background-color: 34, 34, 34;
+    --primary-text-color: 245, 245, 245;
+    --secondary-text-color: 189, 189, 189;
+    --branding-color: 255, 255, 255;
 
-// Todo: Band-Aid solution. Remove once engine is up and running.
-@media (prefers-color-scheme: dark) {
-    .default-theme {
-        --link-color: 48, 79, 254;
-        --link-focus-color: 13, 71, 161;
-        --border-color: 66, 66, 66;
-        --background-color: 34, 34, 34;
-        --primary-text-color: 245, 245, 245;
-        --secondary-text-color: 189, 189, 189;
-        --branding-color: 255, 255, 255;
-    
-        .navigation-picasso {
-            --background-color: 59, 59, 59;
+    .navigation-picasso {
+        --background-color: 59, 59, 59;
+        --border-color: 97, 97, 97;
 
-            .picasso-item {
-                --border-color: 97, 97, 97;
+        .picasso-item {
+            --border-color: 97, 97, 97;
+            
+            &.is-active {
+                --border-color: 48, 79, 254;
             }
         }
-    
-        .blog-post-related,
-        .blog-post-related + .master-footer {
-            --border-color: 66, 66, 66;
-            --background-color: 29, 29, 29;
-            --secondary-text-color: 189, 189, 189;
-        }
+    }
+
+    .blog-post-related,
+    .blog-post-related + .master-footer {
+        --border-color: 66, 66, 66;
+        --background-color: 29, 29, 29;
+        --secondary-text-color: 189, 189, 189;
+    }
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) { 
+    html {
+        font-size: 16px;
     }
 }
 
@@ -135,7 +200,7 @@ time {
         @extend .meta;
     }
 
-    &-palette {
+    &-swatch {
         height: 14px;
         width: 14px;
         border: .0625rem solid #{'rgb(var(--border-color))'};
@@ -164,7 +229,7 @@ time {
     z-index: 2080;
 
     .navigation-picasso {
-        display: block;
+        display: none;
         padding: .75rem 0;
         border-bottom: .0625rem solid #{'rgb(var(--border-color))'};
         background-color: #{'rgb(var(--background-color))'};
@@ -181,6 +246,10 @@ time {
                 @extend .meta;
             }
         }
+
+    &.is-open {
+        display: block;
+    }    
     }
 
     .navigation-navbar {
@@ -363,7 +432,7 @@ time {
             color: #{'rgb(var(--secondary-text-color))'};
         }
 
-        .meta-palette {
+        .meta-swatch {
             height: 12px;
             width: 12px;
         }
@@ -557,6 +626,7 @@ time {
 .master-navigation.showcase-view .navigation-navbar {
     border-color: #212121;
     background-color: #000;
+    backdrop-filter: none;
 
     .navbar-logo {
         border-color: #fff;
@@ -587,7 +657,7 @@ time {
 
 //404
 
-.null-theme {
+.surface-scope-404 {
     --link-color: 255, 82, 82;
     --link-focus-color: 255, 82, 82;
     --border-color: 255, 82, 82;
@@ -598,11 +668,13 @@ time {
 
     .master-navigation .navigation-picasso {
         --background-color: 0, 0, 0;
+        --border-color: 255, 82, 82;
+        border-color: #{'rgb(var(--border-color))'};
         background-color: #{'rgb(var(--background-color))'};
 
         .picasso-item {
-            --border-color: 82, 0, 0;
-            border-color: #{'rgb(var(--border-color))'}
+            --border-color: 97, 97, 97;
+            border-color: #{'rgb(var(--border-color))'};
         }
     }
 

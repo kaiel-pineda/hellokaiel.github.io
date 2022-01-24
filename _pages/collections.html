@@ -24,7 +24,7 @@ layout: default
                         <h2 class="meta-categories">{{ entry.categories | first }}</h2>
                         <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
                             {%- for color in entry.colors -%}
-                                <div class="meta-palette" style="background-color: {{ color }}"></div>
+                                <div class="meta-swatch" style="background-color: {{ color }}"></div>
                             {%- endfor -%}
                         </div>
                     </div>

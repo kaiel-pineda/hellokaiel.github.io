@@ -1,31 +1,22 @@
 <nav class="master-navigation" role="navigation">
-    <div class="navigation-picasso" style="display: none;">
+    <div class="navigation-picasso js-navigation-picasso">
         <div class="d-flex justify-center items-center gap-x-6">
-            <button class="picasso-item" style="background-color: #fff;">
+            <button class="picasso-item js-picasso-item-select" data-theme="default-theme" style="background-color: #fff;">
                 <h6 class="meta-style" style="color: #212121;">Light</h6>
                 <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                    <div class="meta-palette" style="border-color: #e0e0e0; background-color: #304ffe"></div>
-                    <div class="meta-palette" style="border-color: #e0e0e0; background-color: #eee"></div>
-                    <div class="meta-palette" style="border-color: #e0e0e0; background-color: #fff"></div>
-                    <div class="meta-palette" style="border-color: #e0e0e0; background-color: #212121"></div>
+                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #304ffe"></div>
+                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #eee"></div>
+                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #fff"></div>
+                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #212121"></div>
                 </div>
             </button>
-            <button class="picasso-item" style="background-color: #2c3032;">
-                <h6 class="meta-style" style="color: #f5f5f5;">Night</h6>
-                <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                    <div class="meta-palette" style="border-color: #616161; background-color: #0d47a1"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #4c585e"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #2c3032"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #f5f5f5"></div>
-                </div>
-            </button>
-            <button class="picasso-item" style="background-color: #424242;">
+            <button class="picasso-item js-picasso-item-select" data-theme="dark-theme" style="background-color: #222;">
                 <h6 class="meta-style" style="color: #f5f5f5;">Dark</h6>
                 <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                    <div class="meta-palette" style="border-color: #616161; background-color: #0d47a1"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #424242"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #222"></div>
-                    <div class="meta-palette" style="border-color: #616161; background-color: #f5f5f5"></div>
+                    <div class="meta-swatch" style="border-color: #616161; background-color: #0d47a1"></div>
+                    <div class="meta-swatch" style="border-color: #616161; background-color: #424242"></div>
+                    <div class="meta-swatch" style="border-color: #616161; background-color: #222"></div>
+                    <div class="meta-swatch" style="border-color: #616161; background-color: #f5f5f5"></div>
                 </div>
             </button>            
         </div>
@@ -44,7 +35,7 @@
                         {% endfor %}
                     </div>
                     <div class="d-flex items-center">
-                        <button class="navbar-picasso">
+                        <button class="navbar-picasso js-navbar-picasso-toggle">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                 <path d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 .5.5v5.277l4.147-4.131a.5.5 0 0 1 .707 0l3.535 3.536a.5.5 0 0 1 0 .708L10.261 10H15.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5H3a2.99 2.99 0 0 1-2.121-.879A2.99 2.99 0 0 1 0 13.044m6-.21 7.328-7.3-2.829-2.828L6 7.188v5.647zM4.5 13a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0zM15 15v-4H9.258l-4.015 4H15zM0 .5v12.495V.5z"/>
                                 <path d="M0 12.995V13a3.07 3.07 0 0 0 0-.005z"/>
