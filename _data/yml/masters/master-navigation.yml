@@ -1,0 +1,33 @@
+picasso-data:
+  themes:
+    - name: Light
+      id: default-theme
+      palette:
+        link-color: "#304ffe"
+        border-color: "#eee"
+        background-color: "#fff"
+        text-color: "#212121"
+
+    - name: Dark
+      id: dark-theme
+      palette:
+        link-color: "#0d47a1"
+        border-color: "#424242"
+        background-color: "#222"
+        text-color: "#f5f5f5"
+
+    - name: Osiris
+      id: desert-theme
+      palette:
+        link-color: "#1c5e75"
+        border-color: "#d6cfcb"
+        background-color: "#fffaef"
+        text-color: "#3d3d3d"        
+
+navbar-data:
+  links:
+    - title: About
+      url: /about
+
+    - title: Collections
+      url: /collections

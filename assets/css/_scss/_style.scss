@@ -102,11 +102,6 @@
     }
 }
 
-// Night
-.dim-theme {
-    display: block;
-}
-
 // Dark
 [data-theme='dark-theme'] {
     --link-color: 48, 79, 254;
@@ -136,6 +131,42 @@
         --background-color: 29, 29, 29;
         --secondary-text-color: 189, 189, 189;
     }
+}
+
+// Desert
+[data-theme='desert-theme'] {
+    --link-color: 28, 94, 117;
+    --link-focus-color: 13, 71, 161;
+    --border-color: 214, 207, 203;
+    --background-color: 255, 250, 239;
+    --primary-text-color: 61, 61, 61;
+    --secondary-text-color: 103, 103, 103;
+    --branding-color: 144, 57, 9;
+
+    .navigation-picasso {
+        --border-color: 198, 191, 186;
+        --background-color: 255, 245, 227;
+
+        .picasso-item {
+            --border-color: 97, 97, 97;
+            
+            &.is-active {
+                --border-color: 28, 94, 117;
+            }
+        }
+    }
+
+    .blog-post-related,
+    .blog-post-related + .master-footer {
+        --border-color: 193, 187, 184;
+        --background-color: 234, 225, 211;
+        --secondary-text-color: 56, 56, 56;
+    }
+}
+
+// Night
+.dim-theme {
+    display: block;
 }
 
 html {
@@ -243,13 +274,18 @@ time {
                 margin-bottom: .5rem;
                 font-size: .875rem;
                 font-weight: 400;
+                color: #{'rgb(var(--primary-text-color))'};
                 @extend .meta;
+            }
+
+            .meta-swatch {
+                border-color: #bdbdbd;
             }
         }
 
-    &.is-open {
-        display: block;
-    }    
+        &.is-open {
+            display: block;
+        }    
     }
 
     .navigation-navbar {

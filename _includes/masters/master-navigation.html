@@ -1,24 +1,17 @@
 <nav class="master-navigation" role="navigation">
     <div class="navigation-picasso js-navigation-picasso">
         <div class="d-flex justify-center items-center gap-x-6">
-            <button class="picasso-item js-picasso-item-select" data-theme="default-theme" style="background-color: #fff;">
-                <h6 class="meta-style" style="color: #212121;">Light</h6>
-                <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #304ffe"></div>
-                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #eee"></div>
-                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #fff"></div>
-                    <div class="meta-swatch" style="border-color: #e0e0e0; background-color: #212121"></div>
+            {% for theme in site.data.yml.masters/master-navigation.picasso-data.themes %}
+            <button class="picasso-item js-picasso-item-select" data-theme="{{ theme.id }}" style="background-color: {{ theme.palette.background-color }};">
+                <h6 class="meta-style">{{ theme.name }}</h6>
+                <div class="d-flex flex-nowrap justify-center items-center gap-x-1">
+                    <div class="meta-swatch" style="background-color: {{ theme.palette.link-color }};"></div>
+                    <div class="meta-swatch" style="background-color: {{ theme.palette.border-color }};"></div>
+                    <div class="meta-swatch" style="background-color: {{ theme.palette.background-color }};"></div>
+                    <div class="meta-swatch" style="background-color: {{ theme.palette.text-color }};"></div>
                 </div>
             </button>
-            <button class="picasso-item js-picasso-item-select" data-theme="dark-theme" style="background-color: #222;">
-                <h6 class="meta-style" style="color: #f5f5f5;">Dark</h6>
-                <div class="d-flex flex-nowrap justify-between items-center gap-x-1">
-                    <div class="meta-swatch" style="border-color: #616161; background-color: #0d47a1"></div>
-                    <div class="meta-swatch" style="border-color: #616161; background-color: #424242"></div>
-                    <div class="meta-swatch" style="border-color: #616161; background-color: #222"></div>
-                    <div class="meta-swatch" style="border-color: #616161; background-color: #f5f5f5"></div>
-                </div>
-            </button>            
+            {% endfor %}        
         </div>
     </div>
     <div class="navigation-navbar">
@@ -30,7 +23,7 @@
                 </a>
                 <div class="d-inline-flex items-center gap-x-6">
                     <div class="d-flex items-center justify-between gap-x-6">
-                        {% for link in site.data.yml.masters/nav-master %}
+                        {% for link in site.data.yml.masters/master-navigation.navbar-data.links %}
                         <a class="navbar-item" href="{{ link.url }}">{{ link.title }}</a>
                         {% endfor %}
                     </div>
