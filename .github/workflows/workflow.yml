@@ -12,6 +12,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: Install NPM dependencies
+        run: |
+          npm install
+          npm install --only=dev
+
       - name: ruby_setup
         uses: ruby/setup-ruby@v1
         with:
