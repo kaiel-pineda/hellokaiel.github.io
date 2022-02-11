@@ -29,12 +29,12 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ "/assets/css/build.min.css" | relative_url | append: cache_bust }}">
+        <link rel="stylesheet" href="{{ "assets/css/build.min.css" | relative_url | append: cache_bust }}">
         <script type="application/javascript">
             localStorage.getItem('site-theme') && 
             document.documentElement.setAttribute('data-site-theme', localStorage.getItem('site-theme'))
         </script>
-        <link rel="stylesheet" href="{{ "/assets/css/vendors/flickity/flickity.min.css" | relative_url }}">
+        <link rel="stylesheet" href="{{ "assets/css/vendors/flickity/flickity.min.css" | relative_url }}">
 
         <meta name="msapplication-TileColor" content="#f5f5f5">
         <meta name="msapplication-config" content="{{ 'public/browserconfig.xml?v=2' | relative_url }}">
@@ -43,7 +43,7 @@
     <body>
         {{ content }}
 
-        <script src="{{ "/assets/js/main.min.js" | relative_url }}"></script>
-        <script src="{{ "/assets/js/vendors/flickity/flickity.pkgd.min.js" | relative_url }}"></script>
+        <script src="{{ "assets/js/main.min.js" | relative_url }}"></script>
+        <script src="{{ "assets/js/vendors/flickity/flickity.pkgd.min.js" | relative_url }}"></script>
     </body>
 </html>
