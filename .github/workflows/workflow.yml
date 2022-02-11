@@ -12,7 +12,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Install NPM dependencies
+      - name: npm_install
         run: |
           npm install
           npm install --only=dev
@@ -28,7 +28,7 @@ jobs:
         with:
           enable_cache: true
           format_output: true
-          prettier_opts: '{ "useTabs": true }'
+          prettier_opts: '{ "useTabs": false }'
 
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
