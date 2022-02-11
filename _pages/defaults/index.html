@@ -2,56 +2,69 @@
 layout: default
 permalink: /
 ---
-<div class="surface-scope">
-    {% include masters/master-navigation.html %}
+{%- assign blog_posts = site.posts | where:"type", "blog" -%}
+{%- assign sort_by_year = blog_posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+<div class="scope" role="document">
+    {% include masters/master_navigation.html %}
 
-    {%- assign blog_entries = site.posts | where:"type", "blog" -%}
-    <div class="surface-content m-y-30">
-        <div class="c-md">
-            <header class="page-header">
-                <div class="d-flex flex-nowrap items-baseline gap-x-2">
-                    <h1 class="display-1">Blog</h1>
-                    <h1 class="text-sm font-interface text-400 color-600 text-uppercase">
-                    {%- assign entry_counter = 0 -%}
-                    {%- if blog_entries.size > 0 -%}
-                        {%- for entries in blog_entries -%}
-                            {%- assign entry_counter = entry_counter | plus: 1 -%}
+    <div class="grow margin-y-30">
+        <div class="container-md">
+            <header class="border-b-1 border-neutral-200 margin-b-18 padding-b-6">
+                <div class="flex align-items-center gap-x-2">
+                    <h6 class="text-sm text-medium text-uppercase">Blog</h6>
+                    <h6 class="text-sm text-normal color-neutral-600">
+                    {%- assign post_counter = 0 -%}
+                    {%- if blog_posts.size > 0 -%}
+                        {%- for posts in blog_posts -%}
+                            {%- assign post_counter = post_counter | plus: 1 -%}
                         {%- endfor -%}
-                        {%- if blog_entries.size == 1 -%}
-                            {{ entry_counter }} Post
-                        {%- else -%}
-                            {{ entry_counter }} Posts
-                        {%- endif -%}
+                    {%- if blog_posts.size == 1 -%}
+                        1 Post
                     {%- else -%}
+                        {{ post_counter }} Posts
+                    {%- endif -%}    
+                    {%- else -%} 
                         No Posts
                     {%- endif -%}
-                    </h1>
+                    </h6>
                 </div>
             </header>
 
-            <main class="blog-main">
-                {%- assign year_sort = blog_entries | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
-                {%- for year in year_sort -%}
-                <div class="main-block">
+            <main class="flex flex-y gap-y-18">
+                {%- if sort_by_year.size != 0 -%}
+                {%- for year in sort_by_year -%}
+                <div class="grid grid-y-1 gap-y-12 sm:grid-y-2 sm:gap-x-6 padding-b-18 border-b-1 border-neutral-200 last:padding-b-0 last:border-b-0">
                     <div>
-                        <h3 class="meta-date">{{ year.name }}</h3>
+                        <h6 class="text-sm text-medium color-neutral-600">{{ year.name }}</h6>
                     </div>
-                    <div>
-                        {%- for entry in year.items -%}
-                        <a href="{{ entry.url | relative_url }}">
-                            <h2 class="meta-headline">{{ entry.title }}</h2>
-                            <div class="d-inline-flex flex-nowrap items-center gap-x-1">
-                                <time class="meta-date">{{ entry.date | date: "%b %d, %Y" }}</time>
-                                <h2 class="meta-categories">{{ entry.categories | first }}</h2>
+                    <div class="flex flex-y gap-y-18">
+                        {%- for post in year.items -%}
+                        <div>
+                            <div class="limit-width-85">
+                                <a class="text-sm text-base text-bold color-primary-neutral-base hover:color-primary-neutral-base focus:color-primary-neutral-base" href="{{ post.url | relative_url }}">{{ post.title }}</a>
                             </div>
-                        </a>
+                            <div class="flex align-items-center gap-x-2">
+                                <time class="text-sm text-medium color-neutral-600 block">{{ post.date | date: "%b %d, %Y" }}</time>
+                                <div class="flex align-items-center gap-x-2 text-sm color-neutral-600 before:content-['―']">
+                                {%- for category in post.categories -%}
+                                    <a class="text-sm text-normal hover:color-primary-neutral-base-inverted focus:color-primary-neutral-base-inverted" href="{{ category | prepend: '/categories/' | downcase | relative_url }}">{{ category }}</a>
+                                {%- endfor -%}
+                                </div>
+                            </div>
+                        </div>
                         {%- endfor -%}
                     </div>
                 </div>
                 {%- endfor -%}
+                {%- else -%}
+                <div class="grow flex flex-y justify-content-center">
+                    <h6>That's All Folks!</h6>
+                    <p class="text-sm color-neutral-600">Nothing has been published yet.</p>
+                </div>
+                {%- endif -%}
             </main>
         </div>
     </div>
 
-    {% include masters/master-footer.html %}
+    {% include masters/master_footer.html %}
 </div>

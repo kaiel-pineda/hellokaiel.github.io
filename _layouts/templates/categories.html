@@ -1,8 +1,7 @@
 ---
 layout: default
 ---
-{%- assign collections_posts = site.posts | where:"type", "collections" -%}
-{%- assign sort_by_year = collections_posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
+{%- assign sort_by_year = page.posts | group_by_exp: 'post', 'post.date | date: "%Y"' -%}
 <div class="scope" role="document">
     {% include masters/master_navigation.html %}
 
@@ -10,43 +9,40 @@ layout: default
         <div class="container-md">
             <header class="border-b-1 border-neutral-200 margin-b-18 padding-b-6">
                 <div class="flex align-items-center gap-x-2">
-                    <h6 class="text-sm text-medium text-uppercase">Collections</h6>
+                    <h6 class="text-sm text-medium text-uppercase">{{ page.title }}</h6>
                     <h6 class="text-sm text-normal color-neutral-600">
                     {%- assign post_counter = 0 -%}
-                    {%- if collections_posts.size > 0 -%}
-                        {%- for posts in collections_posts -%}
+                    {%- if sort_by_year.size > 0 -%}
+                        {%- for posts in sort_by_year -%}
                             {%- assign post_counter = post_counter | plus: 1 -%}
                         {%- endfor -%}
-                    {%- if collections_posts.size == 1 -%}
-                        1 Project
+                    {%- if sort_by_year.size == 1 -%}
+                        1 Post
                     {%- else -%}
-                        {{ post_counter }} Projects
+                        {{ post_counter }} Posts
                     {%- endif -%}    
                     {%- else -%} 
-                        No Projects
+                        No Posts
                     {%- endif -%}
                     </h6>
                 </div>
             </header>
 
             <main class="flex flex-y gap-y-18">
-                {%- if sort_by_year.size != 0 -%}
                 {%- for year in sort_by_year -%}
-                <div class="flex flex-y justify-content-center gap-y-12">
+                <div class="grid grid-y-1 gap-y-12 sm:grid-y-2 sm:gap-x-6 padding-b-18 border-b-1 border-neutral-200 last:padding-b-0 last:border-b-0">
                     <div>
                         <h6 class="text-sm text-medium color-neutral-600">{{ year.name }}</h6>
                     </div>
-                    <div class="grid grid-y-1 gap-y-12 sm:grid-y-2 sm:gap-x-6">
+                    <div class="flex flex-y gap-y-18">
                         {%- for post in year.items -%}
-                        <div class="grid gap-y-6 align-items-center padding-4 border-1 border-neutral-200 block">
-                            <div>
-                                <div class="limit-width-85">
-                                    <a class="text-sm text-base text-bold color-primary-neutral-base hover:color-primary-neutral-base focus:color-primary-neutral-base" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                                </div>
-                                <time class="text-sm text-medium color-neutral-600 block">{{ post.date | date: "%b %d, %Y" }}</time>
+                        <div>
+                            <div class="limit-width-85">
+                                <a class="text-sm text-base text-bold color-primary-neutral-base hover:color-primary-neutral-base focus:color-primary-neutral-base" href="{{ post.url | relative_url }}">{{ post.title }}</a>
                             </div>
-                            <div>
-                                <div class="flex align-items-center gap-x-2 text-sm color-neutral-600">
+                            <div class="flex align-items-center gap-x-2">
+                                <time class="text-sm text-medium color-neutral-600 block">{{ post.date | date: "%b %d, %Y" }}</time>
+                                <div class="flex align-items-center gap-x-2 text-sm color-neutral-600 before:content-['―']">
                                 {%- for category in post.categories -%}
                                     <a class="text-sm text-normal hover:color-primary-neutral-base-inverted focus:color-primary-neutral-base-inverted" href="{{ category | prepend: '/categories/' | downcase | relative_url }}">{{ category }}</a>
                                 {%- endfor -%}
@@ -57,12 +53,6 @@ layout: default
                     </div>
                 </div>
                 {%- endfor -%}
-                {%- else -%}
-                <div class="grow flex flex-y justify-content-center">
-                    <h6>Something's Missing…</h6>
-                    <p class="text-sm color-neutral-600">There are no projects yet.</p>
-                </div>
-                {%- endif -%}
             </main>
         </div>
     </div>

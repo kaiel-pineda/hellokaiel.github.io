@@ -1,20 +1,20 @@
 <!doctype html>
 {%- assign cache_bust = site.time | date:'?v=%s' %}
 <!--
-    🛠️ Hello Kaiel build {{ cache_bust | remove: '?v=' }}
+    🛠️ Build {{ cache_bust | remove: '?v=' }}
     🐉 Abandon all hope, ye who enter here. Here be dragons.
 -->
 <html lang="en-US" dir="ltr">
     <head>
         <meta charset="utf-8">
         <title>
-            {%- if page.path contains '_posts' -%}
-                {{ page.title }} | Hello Kaiel 
-            {%- else -%}
-                Hello Kaiel
-            {%- endif -%}
+        {%- if page.url == "/" -%}
+            Hello Kaiel
+        {%- else -%}
+            {{ page.title }} | Hello Kaiel
+        {%- endif -%}
         </title>
-        <meta name="description" content="Hello Kaiel | The personal website of Karl Pineda. Here be dragons."/>
+        <meta name="description" content="Hello Kaiel | The personal website of Karl Pineda. Here be dragons.">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
         <link rel="apple-touch-icon" sizes="180x180" href="{{ 'public/apple-touch-icon.png?v=2' | relative_url }}">
@@ -29,27 +29,21 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ "/assets/css/stylesheet.min.css" | relative_url | append: cache_bust }}">
-        <script>
-            localStorage.getItem('theme') && 
-            document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'))
+        <link rel="stylesheet" href="{{ "/assets/css/build.min.css" | relative_url | append: cache_bust }}">
+        <script type="application/javascript">
+            localStorage.getItem('site-theme') && 
+            document.documentElement.setAttribute('data-site-theme', localStorage.getItem('site-theme'))
         </script>
-        <link rel="stylesheet" href="{{ 'assets/css/vendors/flickity.min.css' | relative_url }}">
+        <link rel="stylesheet" href="{{ "/assets/css/vendors/flickity/flickity.min.css" | relative_url }}">
 
         <meta name="msapplication-TileColor" content="#f5f5f5">
         <meta name="msapplication-config" content="{{ 'public/browserconfig.xml?v=2' | relative_url }}">
-        <meta name="theme-color" content="#eeeeee">        
+        <meta name="theme-color" content="#eeeeee">
     </head>
     <body>
-        
         {{ content }}
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <script src="{{ 'assets/js/vendors/flickity.pkgd.min.js' | relative_url }}"></script>
-        <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
-        {%- if page.layout == "entries/project" -%}
-        <script src="{{ 'assets/js/project.min.js' | relative_url }}"></script>
-        {%- endif -%}        
+        <script src="{{ "/assets/js/main.min.js" | relative_url }}"></script>
+        <script src="{{ "/assets/js/vendors/flickity/flickity.pkgd.min.js" | relative_url }}"></script>
     </body>
 </html>

@@ -1,0 +1,10 @@
+master_customization:
+  - title: Light
+    id: default-theme
+  - title: Dark
+    id: dim-theme
+master_navbar:
+  - title: About
+    url: /about
+  - title: Collections
+    url: /collections

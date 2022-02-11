@@ -1,59 +1,64 @@
+// Normalization of HTML elements, manually forked from Normalize.css to remove
+// styles targeting irrelevant browsers while applying new styles.
+//
+// Normalize is licensed MIT. https://github.com/necolas/normalize.css
+
+// Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 *,
 *::before,
 *::after {
     box-sizing: border-box;
     border-width: 0;
     border-style: solid;
-    border-color: currentColor;
 }
+
+// Use a consistent sensible line-height in all browsers.
+// Prevent adjustments of font size after orientation changes in iOS.
+// Use a more readable tab size.
+// Use the user's configured `sans` font-family by default.
 
 html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
     tab-size: 4;
-    height: 100%
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+// Remove the margin in all browsers.
+// Inherit line-height from `html` so users can set them as a class directly on the `html` element.
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 400;
     line-height: inherit;
-    text-align: left;
+    font-size: 1rem;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    height: 100%
+}
+
+// Allow percentage-based heights in the application
+html, body {
+    height: 100%;
 }
 
 // Add the correct height in Firefox.
 // Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
 // Ensure horizontal rules are visible by default.
+
 hr {
     height: 0;
     color: inherit;
-}
-
-hr:not([size]) {
     border-top-width: 1px;
 }
-
+ 
 // Add the correct text decoration in Chrome, Edge, and Safari.
+// Add explicit cursor to indicate changed behavior.
 // Prevent the text-decoration to be skipped.
-abbr[title] {
+abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
-    cursor: help;
+    -webkit-text-decoration-skip-ink: none;
     text-decoration-skip-ink: none;
-}
-
-// Remove the default font size and weight for headings.
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: inherit;
-    font-weight: inherit;
+    cursor: help;
 }
 
 // Reset links to optimize for opt-in styling instead of opt-out.
@@ -62,10 +67,9 @@ a {
     text-decoration: inherit;
 }
 
-// Undo these styles for placeholder links/named anchors (without href).
+// And undo these styles for placeholder links/named anchors (without href).
 // It would be more straightforward to just use a[href] in previous block, but that
-// causes specificity issues in many other styles that are too complex to fix.
-// (https://github.com/twbs/bootstrap/issues/19402)
+// causes specificity issues in many other styles that are too complex to fix. (https://github.com/twbs/bootstrap/issues/19402)
 a:not([href]):not([class]) {
     &,
     &:hover {
@@ -74,33 +78,41 @@ a:not([href]):not([class]) {
     }
 }
 
+// Text will automatically line-wrap if there isn't enough space to fit all of the characters on a single line.
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
 // Add the correct font weight in Edge and Safari.
 b,
 strong {
     font-weight: bolder;
 }
 
+// Use the user's configured `mono` font family by default.
 // Correct the odd `em` font sizing in all browsers.
 code,
 kbd,
 samp,
 pre {
-    font-family: monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: 1em;
     direction: ltr;
     unicode-bidi: bidi-override;
 }
 
+// Remove browser default top margin
+// Reset browser default of `1em` to use `rem`s
 // Don't allow content to break outside
 pre {
     display: block;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 1rem;
     overflow: auto;
-    color: inherit;
 
     // Account for some code outputs that place code tags in pre tags
     code {
-        font-size: inherit;
         color: inherit;
         word-break: normal;
     }
@@ -115,18 +127,15 @@ code {
     }
 }
 
+kbd kbd {
+    padding: 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+  
 // Add the correct font size in all browsers.
 small {
     font-size: 80%;
-}
-
-// Prevent `sub` and `sup` elements from affecting the line height in all browsers.
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
 }
 
 sub {
@@ -140,15 +149,12 @@ sup {
 // Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
 // Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
 // Remove gaps between table borders by default.
+// Prevent double borders.
 table {
     text-indent: 0;
-    caption-side: bottom;
     border-color: inherit;
     border-collapse: collapse;
-}
-
-caption {
-    text-align: left;
+    caption-side: bottom;
 }
 
 // Matches default `<td>` alignment by inheriting `text-align`.
@@ -169,25 +175,29 @@ th {
     border-width: 0;
 }
 
-// Allow labels to use `margin` for spacing.
 label {
     display: inline-block;
 }
-
-// Change the font styles in all browsers.
+  
 // Remove the margin in Firefox and Safari.
 // Remove default padding in all browsers.
+// Change the font styles in all browsers.
 button,
 input,
 optgroup,
 select,
 textarea {
-    font-family: inherit;
+    margin: 0;
+    padding: 0;
+    font: inherit;
     font-size: 100%;
     line-height: inherit;
     color: inherit;
-    margin: 0;
-    padding: 0;
+}
+
+// Remove the default `border-radius` that macOS Chrome adds. (https://github.com/twbs/bootstrap/issues/24093)
+button {
+    border-radius: 0;
 }
 
 // Remove the inheritance of text transform in Edge and Firefox.
@@ -196,9 +206,27 @@ select {
     text-transform: none;
 }
 
+// Explicitly remove focus outline in Chromium when it shouldn't be
+// visible (e.g. as result of mouse click or touch tap). It already
+// should be doing this automatically, but seems to currently be
+// confused and applies its very visible two-tone outline anyway.
+button:focus:not(:focus-visible) {
+    outline: 0;
+}
+  
+// Set the cursor for non-`<button>` buttons (https://github.com/twbs/bootstrap/pull/30562)
+button,
+[role="button"] {
+    cursor: pointer;
+}
+
+// Make sure disabled buttons don't get the pointer cursor.
+:disabled {
+    cursor: default;
+}
+
 select {
-    // Remove the inheritance of word-wrap in Safari.
-    // (https://github.com/twbs/bootstrap/issues/24990)
+    // Remove the inheritance of word-wrap in Safari. (https://github.com/twbs/bootstrap/issues/24990)
     word-wrap: normal;
   
     // Undo the opacity change from Chrome
@@ -207,17 +235,8 @@ select {
     }
 }
 
-// Remove the dropdown arrow in Chrome from inputs built with datalists.
-// See https://stackoverflow.com/a/54997118
-
-[list]::-webkit-calendar-picker-indicator {
-    display: none;
-}
-
 // Correct the inability to style clickable types in iOS and Safari.
-// Remove default button styles.
-// Remove the default `border-radius` that macOS Chrome adds.
-// Set the cursor for non-`<button>` buttons (https://github.com/twbs/bootstrap/pull/30562)
+// Removed default button styles.
 // Opinionated: add "hand" cursor to non-disabled button elements.
 button,
 [type='button'],
@@ -226,37 +245,21 @@ button,
     -webkit-appearance: button;
     background-color: transparent;
     background-image: none;
-    border-radius: 0;
-    
+
     &:not(:disabled) {
         cursor: pointer;
-    }    
+    }
 }
 
-// Set the default cursor for buttons.
-button,
-[role="button"] {
-    cursor: pointer;
-}
-
-// Explicitly remove focus outline in Chromium when it shouldn't be
-// visible (e.g. as result of mouse click or touch tap). It already
-// should be doing this automatically, but seems to currently be
-// confused and applies its very visible two-tone outline anyway.
-
-button:focus:not(:focus-visible) {
-    outline: 0;
+// Use the modern Firefox focus style for all focusable elements.
+:-moz-focusring {
+    outline: auto;
 }
 
 // Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
 ::-moz-focus-inner {
     padding: 0;
     border-style: none;
-}
-
-// Use the modern Firefox focus style for all focusable elements.
-:-moz-focusring {
-    outline: auto;
 }
 
 // Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
@@ -269,8 +272,22 @@ progress {
     vertical-align: baseline;
 }
 
-// Fix height of inputs with a type of datetime-local, date, month, week, or time
-// See https://github.com/twbs/bootstrap/issues/18842
+// By using `float: left`, the legend will behave like a block element.
+// This way the border of a fieldset wraps around the legend if present.
+// Fix wrapping bug. (https://github.com/twbs/bootstrap/issues/29712)
+
+legend {
+    float: left;
+    width: 100%;
+    padding: 0;
+    line-height: inherit;
+  
+    + * {
+        clear: left;
+    }
+}
+  
+// Fix height of inputs with a type of datetime-local, date, month, week, or time (https://github.com/twbs/bootstrap/issues/18842)
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-text,
 ::-webkit-datetime-edit-minute,
@@ -288,15 +305,23 @@ progress {
 }
 
 // Correct the odd appearance in Chrome and Safari.
-// Correct the outline style in Safari.
 [type='search'] {
     -webkit-appearance: textfield;
-    outline-offset: -2px;
 }
 
 // Remove the inner padding in Chrome and Safari on macOS.
 ::-webkit-search-decoration {
     -webkit-appearance: none;
+}
+
+// Remove the dropdown arrow in Chrome from inputs built with datalists. (https://stackoverflow.com/a/54997118)
+[list]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+// Remove padding around color pickers in webkit browsers
+::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
 
 // Correct the inability to style clickable types in iOS and Safari.
@@ -306,64 +331,27 @@ progress {
     font: inherit;
 }
 
-// Remove padding around color pickers in webkit browsers
-
-::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
 // Inherit font family and line height for file input buttons
-
-::file-selector-button {
-    font: inherit;
-}
-
-// Change font properties to `inherit`
 // Correct the inability to style clickable types in iOS and Safari.
-
-::-webkit-file-upload-button {
+::file-selector-button {
     font: inherit;
     -webkit-appearance: button;
 }
-
-// Correct element displays
+  
+// Corrects element displays
 output {
     display: inline-block;
 }
-
-// Remove border from iframe
-
-iframe {
-    border: 0;
-}
-
+  
 // Add the correct display in Chrome and Safari.
 summary {
     display: list-item;
     cursor: pointer;
 }
 
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
-    margin: 0;
-}
-
-// Browsers set a default `min-width: min-content;` on fieldsets,
-// unlike e.g. `<div>`s, which have `min-width: 0;` by default.
-// So we reset that to ensure fieldsets behave more like a standard block element.
-// See https://github.com/twbs/bootstrap/issues/12359
-// and https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements
+// Browsers set a default `min-width: min-content;` on fieldsets, unlike 
+// e.g. `<div>`s, which have `min-width: 0;` by default. So we reset that 
+// to ensure fieldsets behave more like a standard block element. (https://github.com/twbs/bootstrap/issues/12359, https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements)
 // Reset the default outline behavior of fieldsets so they don't affect page layout.
 
 fieldset {
@@ -373,37 +361,10 @@ fieldset {
     border: 0;
 }
 
-// By using `float: left`, the legend will behave like a block element.
-// This way the border of a fieldset wraps around the legend if present.
-// Fix wrapping bug.
-// See https://github.com/twbs/bootstrap/issues/29712
-legend {
-    float: left;
-    width: 100%;
-    padding: 0;
-    line-height: inherit;
-
-    + * {
-        clear: left;
-    }
-}
-
-ol,
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-// Prevent resizing textareas horizontally by default.
-textarea {
-    resize: vertical;
-}
-
 // Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
 input::placeholder,
 textarea::placeholder {
-    opacity: 1;
+  opacity: 1;
 }
 
 // Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
@@ -426,6 +387,11 @@ img,
 video {
     max-width: 100%;
     height: auto;
+}
+
+// Remove border from iframe
+iframe {
+    border: 0;
 }
 
 // Ensure the default browser behavior of the `hidden` attribute.
