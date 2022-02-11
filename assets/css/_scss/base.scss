@@ -1,6 +1,6 @@
 :root {
     --font-display: 'Roboto', "Franklin Gothic Medium", Tahoma, sans-serif;
-    --font-text: 'Roboto', 'Helvetica Now', Helvetica, Arial, sans-serif;
+    --font-text: var(--font-display);
     scroll-behavior: smooth;
 }
 
