@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import LightBox from "../../../components/lib/LightBox.svelte";
+import image001 from "./images/001.jpg";
+import image002 from "./images/002.jpg";
+import image003 from "./images/003.jpg";
+import image004 from "./images/004.jpg";
+import image005 from "./images/005.jpg";
+import image006 from "./images/006.jpg";
+import image007 from "./images/007.jpg";
+import image008 from "./images/008.jpg";
+import image009 from "./images/009.jpg";
+import image010 from "./images/010.jpg";
+import image011 from "./images/011.jpg";
+import image012 from "./images/012.jpg";
+---
+
+<div class="mx-auto w-full max-w-7xl px-6">
+	<div class="mb-24 border border-dynamic-neutral-300">
+		<LightBox client:idle>
+			<Image src={image001} alt="Too lazy to add this." />
+		</LightBox>
+	</div>
+
+	<div class="mb-24 border border-dynamic-neutral-300">
+		<LightBox client:idle>
+			<Image src={image002} alt="Too lazy to add this." />
+		</LightBox>
+	</div>
+
+	<div class="grid grid-cols-3 gap-x-6">
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image003} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image004} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image005} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+	</div>
+
+	<div class="grid grid-cols-2 gap-x-6">
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image006} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image007} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+	</div>
+
+	<div class="mb-24 border border-dynamic-neutral-300">
+		<LightBox client:idle>
+			<Image src={image008} alt="Too lazy to add this." />
+		</LightBox>
+	</div>
+
+	<div class="mb-24 flex flex-col gap-y-3">
+		<div class="border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image009} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+		<span class="text-center text-dynamic-neutral-900">Yes, because wearing a balaclava at a protest works everytime.</span>
+	</div>
+
+	<div class="grid grid-cols-3 gap-x-6">
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image010} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image011} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+
+		<div class="mb-24 border border-dynamic-neutral-300">
+			<LightBox client:idle>
+				<Image src={image012} alt="Too lazy to add this." />
+			</LightBox>
+		</div>
+	</div>
+</div>

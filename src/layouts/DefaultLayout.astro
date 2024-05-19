@@ -1,0 +1,51 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/roboto-flex";
+
+const { title } = Astro.props;
+const siteName = "Hello Kaiel";
+const siteDescription = "Insights and explorations by Karl Pineda";
+const titleTemplate = (title: string) => `${title} | ${siteName}`;
+const titleDefault = siteName;
+---
+
+<html lang="en-US" class="text-sm leading-normal md:text-base">
+	<head>
+		<meta charset="utf-8" />
+		<title>{title ? titleTemplate(title) : titleDefault}</title>
+		<meta name="description" content={siteDescription} />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
+		<link rel="manifest" href="/site.webmanifest?v=2" />
+		<link rel="mask-icon" href="/safari-pinned-tab.svg?v=2" color="#212121" />
+		<link rel="shortcut icon" href="/favicon.ico?v=2" />
+
+		<script>
+			(function () {
+				const storedTheme = localStorage.getItem("theme") || "system";
+				if (storedTheme === "system") {
+					const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+					document.documentElement.setAttribute("data-theme", systemTheme);
+				} else {
+					document.documentElement.setAttribute("data-theme", storedTheme);
+				}
+				document.addEventListener("DOMContentLoaded", function () {
+					document.body.classList.remove("invisible");
+				});
+			})();
+		</script>
+
+		<meta name="msapplication-TileColor" content="#f5f5f5" />
+		<meta name="msapplication-config" content="/browserconfig.xml?v=2" />
+		<meta name="theme-color" content="#eeeeee" />
+	</head>
+	<body class="invisible">
+		<div class="flex min-h-screen flex-col bg-dynamic-neutral-0">
+			<slot />
+		</div>
+	</body>
+</html>

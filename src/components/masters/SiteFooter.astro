@@ -1,0 +1,11 @@
+---
+const { class: className } = Astro.props;
+const currentYear = new Date().getFullYear();
+const defaultFooterClasses = className ? className : "border-dynamic-neutral-300 text-dynamic-neutral-600";
+---
+
+<footer class={`${defaultFooterClasses} border-t py-3 text-center font-medium`}>
+	<div class="container mx-auto px-6">
+		<span class="font-display text-sm">© 2013-{currentYear} Karl Pineda</span>
+	</div>
+</footer>

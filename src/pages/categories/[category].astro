@@ -1,0 +1,123 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import SiteFooter from "../../components/masters/SiteFooter.astro";
+import SiteNavigation from "../../components/masters/SiteNavigation.astro";
+
+type BlogProps = CollectionEntry<"blog">;
+type PortfolioProps = CollectionEntry<"portfolio">;
+type ResearchProps = CollectionEntry<"research">;
+
+const { category } = Astro.params;
+
+const blogEntries: BlogProps[] = await getCollection("blog");
+const portfolioEntries: PortfolioProps[] = await getCollection("portfolio");
+const researchEntries: ResearchProps[] = await getCollection("research");
+
+const allEntries = [...blogEntries, ...portfolioEntries, ...researchEntries];
+
+const filteredEntries = allEntries.filter((entry) => entry.data.categories.includes(category));
+
+const BucketEntriesByYear = filteredEntries.reduce<Record<number, (BlogProps | PortfolioProps | ResearchProps)[]>>((acc, entry) => {
+	const year = new Date(entry.data.date).getFullYear();
+	acc[year] = acc[year] || [];
+	acc[year].push(entry);
+	return acc;
+}, {});
+
+export async function getStaticPaths() {
+	const blogEntries = await getCollection("blog");
+	const portfolioEntries = await getCollection("portfolio");
+	const researchEntries = await getCollection("research");
+
+	const allEntries = [...blogEntries, ...portfolioEntries, ...researchEntries];
+
+	const categories = new Set(allEntries.flatMap((entry) => entry.data.categories));
+
+	return Array.from(categories).map((category) => ({
+		params: { category },
+		props: { category },
+	}));
+}
+
+const capitalizeCategoryTitle = (category: string) => {
+	return category.charAt(0).toUpperCase() + category.slice(1);
+};
+---
+
+<DefaultLayout title={capitalizeCategoryTitle(category)}>
+	<SiteNavigation />
+
+	<div class="flex-1">
+		<main>
+			<div class="mt-24">
+				<div class="container mx-auto px-6">
+					<div class="flex flex-col">
+						<header class="mb-12 border-b border-dynamic-neutral-300 pb-12">
+							<div class="flex flex-col justify-center gap-y-3">
+								<span class="font-display text-xl font-semibold capitalize leading-normal text-dynamic-neutral-950">{category}</span>
+								<span class="font-display text-base font-medium capitalize leading-normal text-dynamic-neutral-700">
+									{filteredEntries.length}
+									{filteredEntries.length === 1 ? "entry" : "entries"}
+								</span>
+							</div>
+						</header>
+
+						<section>
+							<div class="flex flex-col gap-y-12">
+								{
+									Object.entries(BucketEntriesByYear)
+										.sort(([a], [b]) => Number(b) - Number(a))
+										.map(([year, entriesFromYear]) => (
+											<div class="grid grid-cols-1 gap-12 border-b border-dynamic-neutral-300 pb-12 last-of-type:border-b-0 md:grid-cols-2">
+												<div>
+													<span class="font-sans text-base font-medium leading-normal text-dynamic-neutral-700">{year}</span>
+												</div>
+
+												<div class="flex flex-col gap-y-12">
+													{entriesFromYear
+														.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+														.map((entry) => (
+															<div class="flex flex-col gap-y-3">
+																<time class="font-sans text-sm font-medium leading-normal text-dynamic-neutral-700" datetime={new Date(entry.data.date).toISOString()}>
+																	{new Date(entry.data.date).toLocaleDateString("en-us", {
+																		year: "numeric",
+																		month: "short",
+																		day: "numeric",
+																	})}
+																</time>
+
+																<div>
+																	<a class="text-pretty font-display text-base font-semibold leading-normal text-dynamic-neutral-950" href={`/blog/${entry.slug}/`}>
+																		{entry.data.title}
+																	</a>
+																</div>
+
+																<div class="flex flex-wrap gap-x-6">
+																	{entry.data.categories.map((category) => (
+																		<div class="flex items-center gap-x-3">
+																			<div class={`size-2 rounded-full ${entry.collection === "blog" ? "bg-dynamic-article" : entry.collection === "portfolio" ? "bg-dynamic-project" : entry.collection === "research" ? "bg-dynamic-study" : ""}`} />
+																			<span class="font-sans text-sm font-normal capitalize leading-normal text-dynamic-neutral-700">
+																				{entry.collection === "blog" && "article"}
+																				{entry.collection === "portfolio" && "project"}
+																				{entry.collection === "research" && "study"}
+																			</span>
+																		</div>
+																	))}
+																</div>
+															</div>
+														))}
+												</div>
+											</div>
+										))
+								}
+							</div>
+						</section>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<SiteFooter />
+</DefaultLayout>

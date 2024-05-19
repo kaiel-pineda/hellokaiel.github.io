@@ -1,0 +1,71 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type Props = {
+	currentEntry: CollectionEntry<"blog" | "portfolio" | "research">;
+};
+
+const { currentEntry } = Astro.props;
+
+const blogEntries = await getCollection("blog");
+const portfolioEntries = await getCollection("portfolio");
+const researchEntries = await getCollection("research");
+
+const allEntries = [...blogEntries, ...portfolioEntries, ...researchEntries];
+
+const relatedEntries = allEntries.filter((entry) => entry.slug !== currentEntry.slug && entry.data.categories.some((category) => currentEntry.data.categories.includes(category)));
+---
+
+<section class="bg-dynamic-neutral-100 py-24">
+	<div class="flex flex-col gap-y-6">
+		<div class="mx-auto w-full max-w-3xl px-6">
+			<div class="mb-6 border-b border-dynamic-neutral-300 pb-6">
+				<h3 class="font-display text-base font-medium capitalize leading-normal text-dynamic-neutral-700">Also In This Orbit</h3>
+			</div>
+			{
+				relatedEntries.length > 0 ? (
+					<div class="flex flex-col gap-y-6">
+						{relatedEntries
+							.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+							.slice(0, 3)
+							.map((entry) => (
+								<div class="flex flex-col gap-y-3 border-b border-dynamic-neutral-300 pb-6 last:border-none last:pb-0">
+									<time class="font-sans text-sm font-medium leading-normal text-dynamic-neutral-700" datetime={new Date(entry.data.date).toISOString()}>
+										{new Date(entry.data.date).toLocaleDateString("en-us", {
+											year: "numeric",
+											month: "short",
+											day: "numeric",
+										})}
+									</time>
+
+									<div>
+										<a class="text-pretty font-display text-base font-semibold leading-normal text-dynamic-neutral-950" href={`/blog/${entry.slug}/`}>
+											{entry.data.title}
+										</a>
+									</div>
+
+									<div class="flex flex-wrap gap-x-6">
+										{entry.data.categories.map((category) => (
+											<div class="flex items-center gap-x-3">
+												<div class={`size-2 rounded-full ${entry.collection === "blog" ? "bg-dynamic-article" : entry.collection === "portfolio" ? "bg-dynamic-project" : entry.collection === "research" ? "bg-dynamic-study" : ""}`} />
+												<span class="font-sans text-sm font-normal capitalize leading-normal text-dynamic-neutral-700">
+													{entry.collection === "blog" && "article"}
+													{entry.collection === "portfolio" && "project"}
+													{entry.collection === "research" && "study"}
+												</span>
+											</div>
+										))}
+									</div>
+								</div>
+							))}
+					</div>
+				) : (
+					<div class="inline-flex flex-col gap-y-3">
+						<span class="font-display text-base font-semibold leading-normal text-dynamic-neutral-950">No Related Content Available</span>
+						<span class="font-sans font-normal leading-normal text-dynamic-neutral-700">Currently, there are no other posts available under this category.</span>
+					</div>
+				)
+			}
+		</div>
+	</div>
+</section>
