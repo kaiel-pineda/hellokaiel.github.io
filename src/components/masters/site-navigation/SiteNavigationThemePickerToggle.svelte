@@ -2,7 +2,12 @@
 	import { isSiteNavigationThemePickerOpen } from "../../global-stores";
 
 	function toggleSiteNavigationThemePicker() {
-		isSiteNavigationThemePickerOpen.update((value) => !value);
+		isSiteNavigationThemePickerOpen.update((value) => {
+			if (value) {
+				return false;
+			}
+			return !value;
+		});
 	}
 </script>
 
