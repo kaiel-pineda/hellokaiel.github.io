@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { isSiteNavigationThemePickerOpen, selectedTheme } from "../../global-stores";
-	import { onMount } from "svelte";
+	import { onMount, afterUpdate } from "svelte";
 	import { writable } from "svelte/store";
 	import { slide } from "svelte/transition";
 
 	let navigationThemePickerElement: HTMLElement;
+	let firstButton: HTMLElement | null = null;
 	let currentTheme = writable("light");
 
 	function handleOutsideClick(event: MouseEvent): void {
@@ -46,9 +47,19 @@
 			document.removeEventListener("mousedown", handleOutsideClick);
 		};
 	});
+
+	afterUpdate(() => {
+		if ($isSiteNavigationThemePickerOpen && firstButton) {
+			firstButton.focus();
+		}
+	});
 </script>
 
-<div class="relative" bind:this={navigationThemePickerElement}>
+{#if $isSiteNavigationThemePickerOpen}
+	<button class="fixed inset-0 z-40 cursor-default" on:click={handleOutsideClick} tabindex="-1"></button>
+{/if}
+
+<div class="relative z-50" bind:this={navigationThemePickerElement}>
 	{#if $isSiteNavigationThemePickerOpen}
 		<div class="border-b py-6 border-dynamic-neutral-300 bg-dynamic-neutral-50" transition:slide={{ duration: 375 }}>
 			<div class="container mx-auto px-6">
@@ -56,7 +67,7 @@
 					{#each ["light", "dark", "black"] as theme}
 						<div class="inline-block mr-12">
 							<div class="flex flex-col gap-y-3">
-								<button class="border border-dynamic-neutral-300" on:click={() => setTheme(theme)}>
+								<button class="border border-dynamic-neutral-300" on:click={() => setTheme(theme)} bind:this={firstButton}>
 									<div data-theme={theme}>
 										<div class="h-20 w-28 overflow-hidden bg-dynamic-neutral-0 size-full">
 											<div class="flex flex-col gap-y-2">
