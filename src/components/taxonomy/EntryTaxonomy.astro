@@ -1,0 +1,23 @@
+---
+import CategoryLinks from "./CategoryLinks.astro";
+import TagLinks from "./TagLinks.astro";
+
+type Props = {
+	categories?: string[];
+	size?: "base" | "sm";
+	tags?: string[];
+};
+
+const { categories = [], tags = [], size = "sm" } = Astro.props;
+const hasCategories = categories.length > 0;
+const hasTags = tags.length > 0;
+---
+
+{
+	hasCategories || hasTags ? (
+		<div class="flex flex-col gap-y-3">
+			{hasCategories ? <CategoryLinks categories={categories} size={size} /> : null}
+			{hasTags ? <TagLinks tags={tags} size={size} /> : null}
+		</div>
+	) : null
+}

@@ -1,0 +1,16 @@
+---
+import { siteAuthorName } from "../../utils/site";
+
+type Props = {
+	className?: string;
+	href?: string;
+};
+
+const { className = "sr-only", href = "/" } = Astro.props;
+---
+
+<div class:list={["p-author h-card", className]}>
+	<a class="p-name u-url" href={href}>
+		{siteAuthorName}
+	</a>
+</div>

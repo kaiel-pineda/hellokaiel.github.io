@@ -1,0 +1,48 @@
+---
+import type { ContentEntry } from "../../utils/content-entries";
+import { groupEntriesByYear } from "../../utils/group-entries";
+import CollectionTypeMarker from "./CollectionTypeMarker.astro";
+
+type Props = {
+	entries: ContentEntry[];
+};
+
+const { entries } = Astro.props;
+const groupedEntries = groupEntriesByYear(entries);
+---
+
+<div class="collection-groups">
+	{
+		groupedEntries.map(([year, entriesFromYear]) => (
+			<div class="collection-group">
+				<div>
+					<span class="font-sans text-base font-medium leading-normal text-dynamic-neutral-700">{year}</span>
+				</div>
+
+				<div class="collection-entry-list">
+					{entriesFromYear.map((entry) => (
+						<div class="collection-entry">
+							<time class="font-sans text-sm font-medium leading-normal text-dynamic-neutral-700" datetime={new Date(entry.data.date).toISOString()}>
+								{new Date(entry.data.date).toLocaleDateString("en-us", {
+									year: "numeric",
+									month: "short",
+									day: "numeric",
+								})}
+							</time>
+
+							<div>
+								<a class="link-title link-focus" href={`/${entry.collection}/${entry.id}/`}>
+									{entry.data.title}
+								</a>
+							</div>
+
+							<div class="collection-taxonomy">
+								<CollectionTypeMarker collection={entry.collection} />
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		))
+	}
+</div>

@@ -1,20 +1,59 @@
 ---
 import "@fontsource-variable/inter";
 import "@fontsource-variable/roboto-flex";
-
-const { title } = Astro.props;
-const siteName = "Hello Kaiel";
-const siteDescription = "Insights and explorations by Karl Pineda";
-const titleTemplate = (title: string) => `${title} | ${siteName}`;
-const titleDefault = siteName;
+import SiteNavigation from "../components/masters/SiteNavigation.svelte";
+import SiteTopStrip from "../components/masters/SiteTopStrip.svelte";
+import ThemeScope from "../components/theming/ThemeScope.astro";
+import SiteNavigationThemePicker from "../components/masters/site-navigation/SiteNavigationThemePicker.svelte";
+import "../styles/global.css";
+import type { BottomNavigationContext } from "../components/masters/site-navigation/bottom-navigation";
+import { resolveSeoMetadata, type SeoMetadata } from "../utils/seo";
+import { defaultSiteThemePreference, LEGACY_SITE_THEME_STORAGE_KEY, SITE_THEME_STORAGE_KEY, type ThemeScopeValue } from "../utils/theme";
+import { siteAuthorName, siteLocale, siteName } from "../utils/site";
+const { title, theme = "inherit", showBottomNavigation = true, bottomNavigationContext = null, seo: seoInput } = Astro.props as {
+	title?: string;
+	theme?: ThemeScopeValue;
+	showBottomNavigation?: boolean;
+	bottomNavigationContext?: BottomNavigationContext | null;
+	seo?: SeoMetadata;
+};
+const seo = resolveSeoMetadata({
+	metadata: seoInput,
+	pathname: Astro.url.pathname,
+	site: Astro.site,
+	title,
+});
 ---
 
 <html lang="en-US" class="text-sm leading-normal md:text-base">
 	<head>
 		<meta charset="utf-8" />
-		<title>{title ? titleTemplate(title) : titleDefault}</title>
-		<meta name="description" content={siteDescription} />
+		<title>{seo.title}</title>
+		<meta name="description" content={seo.description} />
+		<meta name="author" content={siteAuthorName} />
+		<meta name="robots" content={seo.robots} />
+		{seo.keywords.length > 0 && <meta name="keywords" content={seo.keywords.join(", ")} />}
 		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<link rel="canonical" href={seo.canonicalUrl} />
+
+		<meta property="og:locale" content={siteLocale} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={seo.title} />
+		<meta property="og:description" content={seo.description} />
+		<meta property="og:type" content={seo.type} />
+		<meta property="og:url" content={seo.canonicalUrl} />
+		{seo.image && <meta property="og:image" content={seo.image} />}
+		{seo.image && <meta property="og:image:alt" content={seo.imageAlt} />}
+		{seo.type === "article" && seo.publishedTime && <meta property="article:published_time" content={seo.publishedTime} />}
+		{seo.type === "article" && seo.modifiedTime && <meta property="article:modified_time" content={seo.modifiedTime} />}
+		{seo.type === "article" && seoInput?.section && <meta property="article:section" content={seoInput.section} />}
+		{seo.type === "article" &&
+			seo.keywords.map((keyword) => <meta property="article:tag" content={keyword} />)}
+
+		<meta name="twitter:card" content={seo.image ? "summary_large_image" : "summary"} />
+		<meta name="twitter:title" content={seo.title} />
+		<meta name="twitter:description" content={seo.description} />
+		{seo.image && <meta name="twitter:image" content={seo.image} />}
 
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
@@ -24,15 +63,28 @@ const titleDefault = siteName;
 		<link rel="mask-icon" href="/safari-pinned-tab.svg?v=2" color="#212121" />
 		<link rel="shortcut icon" href="/favicon.ico?v=2" />
 
-		<script>
+		<script
+			define:vars={{
+				defaultSiteThemePreference,
+				legacySiteThemeStorageKey: LEGACY_SITE_THEME_STORAGE_KEY,
+				siteThemeStorageKey: SITE_THEME_STORAGE_KEY,
+			}}
+		>
 			(function () {
-				const storedTheme = localStorage.getItem("theme") || "system";
-				if (storedTheme === "system") {
-					const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-					document.documentElement.setAttribute("data-theme", systemTheme);
-				} else {
-					document.documentElement.setAttribute("data-theme", storedTheme);
-				}
+				const storedThemePreference =
+					localStorage.getItem(siteThemeStorageKey) ??
+					localStorage.getItem(legacySiteThemeStorageKey) ??
+					defaultSiteThemePreference;
+				const resolvedTheme =
+					storedThemePreference === "system"
+						? window.matchMedia("(prefers-color-scheme: dark)").matches
+							? "dark"
+							: "light"
+						: storedThemePreference;
+
+				document.documentElement.dataset.themePreference = storedThemePreference;
+				document.documentElement.dataset.theme = resolvedTheme;
+
 				document.addEventListener("DOMContentLoaded", function () {
 					document.body.classList.remove("invisible");
 				});
@@ -42,10 +94,14 @@ const titleDefault = siteName;
 		<meta name="msapplication-TileColor" content="#f5f5f5" />
 		<meta name="msapplication-config" content="/browserconfig.xml?v=2" />
 		<meta name="theme-color" content="#eeeeee" />
+		<script type="application/ld+json" set:html={JSON.stringify(seo.jsonLd)}></script>
 	</head>
 	<body class="invisible">
-		<div class="flex min-h-screen flex-col bg-dynamic-neutral-0">
+		<ThemeScope as="div" id="site-page" class="flex min-h-screen flex-col bg-dynamic-neutral-0" theme={theme}>
+			<SiteNavigationThemePicker client:idle />
+			<SiteTopStrip client:load pathname={Astro.url.pathname} />
 			<slot />
-		</div>
+			{showBottomNavigation && <SiteNavigation client:load pathname={Astro.url.pathname} bottomNavigationContext={bottomNavigationContext} />}
+		</ThemeScope>
 	</body>
 </html>

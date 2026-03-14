@@ -1,0 +1,27 @@
+---
+import SectionHeader from "../../components/content/SectionHeader.astro";
+import PageScaffold from "../../components/layout/PageScaffold.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import SiteFooter from "../../components/masters/SiteFooter.astro";
+import TaxonomySummaryList from "../../components/taxonomy/TaxonomySummaryList.astro";
+import { getAllContentEntries } from "../../utils/content-entries";
+import { buildTagIndex, getTagHref } from "../../utils/tags";
+
+const tags = buildTagIndex(await getAllContentEntries());
+---
+
+<DefaultLayout title="Tags" showBottomNavigation={false} seo={{ description: "Browse tags across articles, projects, and research." }}>
+	<PageScaffold>
+		<SectionHeader count={tags.length} singularLabel="tag" pluralLabel="tags" title="Tags" />
+		<section>
+			<TaxonomySummaryList
+				emptyDescription="There are currently no tags available."
+				emptyTitle="No Tags Available"
+				getHref={getTagHref}
+				items={tags}
+			/>
+		</section>
+	</PageScaffold>
+
+	<SiteFooter />
+</DefaultLayout>

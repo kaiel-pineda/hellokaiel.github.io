@@ -1,0 +1,19 @@
+---
+import type { HTMLTag } from "astro/types";
+import type { ThemeScopeValue } from "../../utils/theme";
+
+interface Props {
+	as?: HTMLTag;
+	class?: string;
+	id?: string;
+	theme?: ThemeScopeValue;
+}
+
+const { as = "div", class: className = "", id, theme = "inherit", ...rest } = Astro.props;
+const Tag = as;
+const resolvedTheme = theme === "inherit" ? undefined : theme;
+---
+
+<Tag id={id} class={className} data-theme={resolvedTheme} {...rest}>
+	<slot />
+</Tag>

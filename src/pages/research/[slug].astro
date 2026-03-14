@@ -1,21 +1,50 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
+import type { BottomNavigationContext } from "../../components/masters/site-navigation/bottom-navigation";
+import SiteAuthorCard from "../../components/microformats/SiteAuthorCard.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import { getOptionalCollection } from "../../utils/content";
 
 type Props = CollectionEntry<"research">;
 
 export async function getStaticPaths() {
-	const entries = await getCollection("research");
+	const entries = await getOptionalCollection("research", "./src/content/research");
 	return entries.map((entry: Props) => ({
-		params: { slug: entry.slug },
+		params: { slug: entry.id },
 		props: { entry },
 	}));
 }
 
-const entry = Astro.props;
-const { Content } = await entry.render();
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const bottomNavigationContext: BottomNavigationContext = {
+	eyebrow: "Research",
+	primary: entry.data.title,
+};
 ---
 
-<DefaultLayout title={entry.data.title}>
-	<Content />
+<DefaultLayout
+	title={entry.data.title}
+	bottomNavigationContext={bottomNavigationContext}
+	seo={{
+		description: entry.data.description ?? `Research entry: ${entry.data.title}.`,
+		keywords: [...entry.data.categories, ...entry.data.tags],
+		publishedTime: entry.data.date,
+		section: "Research",
+		type: "article",
+	}}
+>
+	<article class="h-entry">
+		<div class="sr-only">
+			<SiteAuthorCard className="" />
+			<time class="dt-published" datetime={new Date(entry.data.date).toISOString()}>
+				{new Date(entry.data.date).toISOString()}
+			</time>
+			<h1 class="p-name">{entry.data.title}</h1>
+			{entry.data.description && <p class="p-summary">{entry.data.description}</p>}
+		</div>
+		<div class="e-content">
+			<Content />
+		</div>
+	</article>
 </DefaultLayout>

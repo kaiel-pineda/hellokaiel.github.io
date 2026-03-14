@@ -1,0 +1,25 @@
+---
+import { getCategoryHref } from "../../utils/categories";
+
+type Props = {
+	categories: string[];
+	className?: string;
+	size?: "base" | "sm";
+};
+
+const { categories, className = "", size = "sm" } = Astro.props;
+const linkClassName = size === "base" ? "link-meta-base" : "link-meta-sm";
+---
+
+<div class:list={["collection-taxonomy", className]}>
+	{
+		categories.map((category) => (
+			<div class="flex items-center gap-x-3">
+				<div class="size-2 bg-dynamic-neutral-950" />
+				<a class={`${linkClassName} link-focus p-category`} href={getCategoryHref(category)} rel="tag">
+					{category}
+				</a>
+			</div>
+		))
+	}
+</div>

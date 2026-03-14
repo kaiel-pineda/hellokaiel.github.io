@@ -1,0 +1,29 @@
+---
+type CollectionType = "blog" | "portfolio" | "research";
+
+type Props = {
+	collection: CollectionType;
+	className?: string;
+};
+
+const { collection, className = "" } = Astro.props;
+
+const collectionColorClass: Record<CollectionType, string> = {
+	blog: "bg-dynamic-article",
+	portfolio: "bg-dynamic-project",
+	research: "bg-dynamic-study",
+};
+
+const collectionLabel: Record<CollectionType, string> = {
+	blog: "article",
+	portfolio: "project",
+	research: "study",
+};
+---
+
+<div class:list={["flex items-center gap-x-3", className]}>
+	<div class:list={["size-2 rounded-full", collectionColorClass[collection]]} />
+	<span class="font-sans text-sm font-normal capitalize leading-normal text-dynamic-neutral-700">
+		{collectionLabel[collection]}
+	</span>
+</div>

@@ -1,0 +1,35 @@
+---
+import SectionHeader from "../../components/content/SectionHeader.astro";
+import PageScaffold from "../../components/layout/PageScaffold.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import SiteFooter from "../../components/masters/SiteFooter.astro";
+import TaxonomyEntryGroups from "../../components/taxonomy/TaxonomyEntryGroups.astro";
+import { getAllContentEntries } from "../../utils/content-entries";
+import { buildTagIndex, getTagBySlug } from "../../utils/tags";
+
+const { tag: tagSlug } = Astro.params;
+
+const allEntries = await getAllContentEntries();
+const currentTag = getTagBySlug(allEntries, tagSlug ?? "");
+
+if (!currentTag) {
+	throw new Error(`Unknown tag: ${tagSlug}`);
+}
+
+export async function getStaticPaths() {
+	return buildTagIndex(await getAllContentEntries()).map((tag) => ({
+		params: { tag: tag.slug },
+	}));
+}
+---
+
+<DefaultLayout title={currentTag.label} seo={{ description: `Entries tagged ${currentTag.label}.` }}>
+	<PageScaffold>
+		<SectionHeader count={currentTag.count} singularLabel="entry" pluralLabel="entries" title={currentTag.label} />
+		<section>
+			<TaxonomyEntryGroups entries={currentTag.entries} />
+		</section>
+	</PageScaffold>
+
+	<SiteFooter />
+</DefaultLayout>

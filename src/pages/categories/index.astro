@@ -1,0 +1,27 @@
+---
+import SectionHeader from "../../components/content/SectionHeader.astro";
+import PageScaffold from "../../components/layout/PageScaffold.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import SiteFooter from "../../components/masters/SiteFooter.astro";
+import TaxonomySummaryList from "../../components/taxonomy/TaxonomySummaryList.astro";
+import { buildCategoryIndex, getCategoryHref } from "../../utils/categories";
+import { getAllContentEntries } from "../../utils/content-entries";
+
+const categories = buildCategoryIndex(await getAllContentEntries());
+---
+
+<DefaultLayout title="Categories" showBottomNavigation={false} seo={{ description: "Browse content categories across articles, projects, and research." }}>
+	<PageScaffold>
+		<SectionHeader count={categories.length} singularLabel="category" pluralLabel="categories" title="Categories" />
+		<section>
+			<TaxonomySummaryList
+				emptyDescription="There are currently no categories available."
+				emptyTitle="No Categories Available"
+				getHref={getCategoryHref}
+				items={categories}
+			/>
+		</section>
+	</PageScaffold>
+
+	<SiteFooter />
+</DefaultLayout>

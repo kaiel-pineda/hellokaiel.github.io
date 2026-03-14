@@ -1,40 +1,33 @@
 ---
-import DefaultLayout from "../layouts/DefaultLayout.astro";
 import SiteFooter from "../components/masters/SiteFooter.astro";
-import SiteNavigation from "../components/masters/SiteNavigation.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
-<DefaultLayout title="Page Not Found">
-	<div class="bg-dynamic-neutral-0" data-theme="edgerunner">
-		<SiteNavigation />
-	</div>
-
-	<div class="flex flex-1 bg-dynamic-neutral-0" data-theme="edgerunner">
-		<main class="container mx-auto flex flex-1 items-center px-6">
-			<div class="inline-flex flex-col gap-y-3">
-				<div class="flex flex-col justify-center">
-					<span class="font-display text-3xl font-semibold leading-normal text-[#fa3a8c]">Blackwall Breach Detected</span>
-					<span class="font-display text-sm font-normal leading-normal text-[#fa3a8c]">//ERROR_404</span>
+<DefaultLayout title='Page Not Found' theme='edgerunner' seo={{ description: "The page you requested could not be found.", noindex: true }}>
+	<div class='flex flex-1 bg-dynamic-neutral-0'>
+		<main class='container mx-auto flex flex-1 items-center px-6'>
+			<div class='inline-flex flex-col gap-y-3'>
+				<div class='flex flex-col justify-center'>
+					<span class='font-display text-3xl font-semibold leading-normal text-[#fa3a8c]'>Blackwall Breach Detected</span>
+					<span class='font-display text-sm font-normal leading-normal text-[#fa3a8c]'>//ERROR_404</span>
 				</div>
-				<span class="max-w-4xl font-sans text-xl font-normal leading-normal text-[#ea1866]">
-					Whoa there, choom! Looks like you’ve gonked some Black ICE daemons and your desired page has flatlined. This node was fried in the DataKrash, drifting lost in cyberspace. Delta now or Netwatch will zero your connection. Stay preem,
-					netrunner; the digital frontier is a wild nova ride.
+				<span class='max-w-4xl font-sans text-xl font-normal leading-normal text-[#ea1866]'>
+					Whoa there, choom! Looks like you've gonked some Black ICE daemons and your desired page has flatlined. This node was fried in the DataKrash, drifting lost in cyberspace. Delta now or Netwatch will zero your connection. Stay
+					preem, netrunner; the digital frontier is a wild nova ride.
 				</span>
 			</div>
 		</main>
 	</div>
 
-	<div data-theme="edgerunner">
-		<SiteFooter class="border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-600" />
-	</div>
+	<SiteFooter class='border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-600' />
 </DefaultLayout>
 
-<style>
+<style is:global>
 	[data-theme="edgerunner"] {
 		--colors-dynamic-neutral-0: 0 0 0;
 		--colors-dynamic-neutral-50: 0 0 0;
-		--colors-dynamic-neutral-100: 23 74 71;
-		--colors-dynamic-neutral-200: 22 89 85;
+		--colors-dynamic-neutral-100: 0 0 0;
+		--colors-dynamic-neutral-200: 0 0 0;
 		--colors-dynamic-neutral-300: 21 112 105;
 		--colors-dynamic-neutral-400: 21 140 129;
 		--colors-dynamic-neutral-500: 31 181 165;
