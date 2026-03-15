@@ -1,0 +1,49 @@
+---
+import CollectionTypeMarker from "../taxonomy/CollectionTypeMarker.astro";
+import EntryTaxonomy from "../taxonomy/EntryTaxonomy.astro";
+import { getFeedEntrySummary, type FeedEntry } from "../../utils/feed-entries";
+
+const { entry } = Astro.props as {
+	entry: FeedEntry;
+	yearLabel?: string;
+};
+
+const summary = getFeedEntrySummary(entry);
+---
+
+<article class="unified-feed-entry h-entry">
+	<div class="unified-feed-entry-inner">
+		<div class="unified-feed-date">
+			{Astro.props.yearLabel && (
+				<div class="unified-feed-entry-year">
+					<span class="unified-feed-entry-year-label">{Astro.props.yearLabel}</span>
+				</div>
+			)}
+
+			<time class="entry-date-label dt-published" datetime={entry.date.toISOString()}>
+				{
+					entry.date.toLocaleDateString("en-us", {
+						year: "numeric",
+						month: "short",
+						day: "numeric",
+					})
+				}
+			</time>
+		</div>
+
+		<div class="unified-feed-body">
+			<h2>
+				<a class="entry-title unified-feed-title-link link-focus p-name u-url" href={entry.href}>
+					{entry.title}
+				</a>
+			</h2>
+
+			{summary && <p class="p-summary entry-summary unified-feed-summary">{summary}</p>}
+
+			<div class="unified-feed-meta">
+				<CollectionTypeMarker collection={entry.collection} className="unified-feed-collection-marker" />
+				<EntryTaxonomy categories={entry.categories} tags={entry.tags} size="base" />
+			</div>
+		</div>
+	</div>
+</article>

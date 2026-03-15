@@ -1,6 +1,5 @@
 ---
-import SectionHeader from "../../components/content/SectionHeader.astro";
-import PageScaffold from "../../components/layout/PageScaffold.astro";
+import DirectoryLayout from "../../components/layout/DirectoryLayout.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import SiteFooter from "../../components/masters/SiteFooter.astro";
 import TaxonomyEntryGroups from "../../components/taxonomy/TaxonomyEntryGroups.astro";
@@ -24,12 +23,11 @@ export async function getStaticPaths() {
 ---
 
 <DefaultLayout title={currentCategory.label} seo={{ description: `Entries filed under ${currentCategory.label}.` }}>
-	<PageScaffold>
-		<SectionHeader count={currentCategory.count} singularLabel="entry" pluralLabel="entries" title={currentCategory.label} />
+	<DirectoryLayout count={currentCategory.count} pluralLabel="entries" singularLabel="entry" title={currentCategory.label}>
 		<section>
 			<TaxonomyEntryGroups entries={currentCategory.entries} />
 		</section>
-	</PageScaffold>
+	</DirectoryLayout>
 
 	<SiteFooter />
 </DefaultLayout>

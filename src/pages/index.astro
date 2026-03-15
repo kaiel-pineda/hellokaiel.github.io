@@ -1,0 +1,20 @@
+---
+import FeedLayout from "../components/layout/FeedLayout.astro";
+import DefaultLayout from "../layouts/DefaultLayout.astro";
+import SiteFooter from "../components/masters/SiteFooter.astro";
+import { getUnifiedFeedEntries } from "../utils/feed-entries";
+import { siteAuthorName, siteIdentitySeed, siteMastheadDescription } from "../utils/site";
+
+const entries = await getUnifiedFeedEntries();
+---
+
+<DefaultLayout title="Index" showBottomNavigation={false} seo={{ description: "A unified index of writing, projects, and research by Karl Pineda." }}>
+	<FeedLayout
+		entries={entries}
+		mastheadDescription={siteMastheadDescription}
+		mastheadSeed={siteIdentitySeed}
+		mastheadTitle={siteAuthorName}
+	/>
+
+	<SiteFooter />
+</DefaultLayout>

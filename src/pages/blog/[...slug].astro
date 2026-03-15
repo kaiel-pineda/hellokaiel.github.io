@@ -5,7 +5,8 @@ import SiteAuthorCard from "../../components/microformats/SiteAuthorCard.astro";
 import EntryTaxonomy from "../../components/taxonomy/EntryTaxonomy.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import SiteFooter from "../../components/masters/SiteFooter.astro";
-import RelatedPosts from "../../partials/RelatedPosts.astro";
+import EntryAppreciationSection from "../../components/content/EntryAppreciationSection.astro";
+import RelatedEntries from "../../partials/RelatedEntries.astro";
 import { getEntryReadingTime } from "../../utils/reading-time";
 
 type Props = CollectionEntry<"blog">;
@@ -45,7 +46,7 @@ const bottomNavigationContext: BottomNavigationContext = {
 					<div class="entry-header-stack">
 						<SiteAuthorCard />
 						{entry.data.description && <p class="sr-only p-summary">{entry.data.description}</p>}
-						<time class="dt-published font-sans text-base font-medium leading-normal text-dynamic-neutral-700" datetime={new Date(entry.data.date).toISOString()}>
+						<time class="entry-date-label dt-published" datetime={new Date(entry.data.date).toISOString()}>
 							{
 								new Date(entry.data.date).toLocaleDateString("en-us", {
 									year: "numeric",
@@ -83,10 +84,12 @@ const bottomNavigationContext: BottomNavigationContext = {
 					<Content />
 				</div>
 			</main>
+
+			<EntryAppreciationSection entryKey={`blog:${entry.id}`} kind="kudos" />
 		</article>
 	</div>
 
-	<RelatedPosts currentEntry={entry} />
+	<RelatedEntries currentEntry={entry} />
 
 	<SiteFooter class="border-dynamic-neutral-300 bg-dynamic-neutral-100 text-dynamic-neutral-600" />
 </DefaultLayout>

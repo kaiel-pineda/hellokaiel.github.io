@@ -3,6 +3,8 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import type { BottomNavigationContext } from "../../components/masters/site-navigation/bottom-navigation";
 import SiteAuthorCard from "../../components/microformats/SiteAuthorCard.astro";
 import EntryTaxonomy from "../../components/taxonomy/EntryTaxonomy.astro";
+import CustomSection from "../../components/content/CustomSection.astro";
+import EntryAppreciationSection from "../../components/content/EntryAppreciationSection.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import SiteFooter from "../../components/masters/SiteFooter.astro";
 import ThemeScope from "../../components/theming/ThemeScope.astro";
@@ -37,15 +39,15 @@ const bottomNavigationContext: BottomNavigationContext = {
 	}}
 >
 	<article class="h-entry">
-		<div class="my-24">
-			<header class="mb-6">
+		<div class="mt-24">
+			<header>
 				<div class="mx-auto max-w-7xl">
 					<div class="grid grid-cols-1 gap-6 lg:grid-cols-[auto_auto]">
 						<div class="row-span-1">
 							<div class="mx-auto max-w-screen-md px-6">
 								<div class="flex flex-col gap-y-3">
 									<SiteAuthorCard />
-									<time class="dt-published font-sans text-base font-medium leading-normal text-dynamic-neutral-700" datetime={new Date(entry.data.date).toISOString()}>
+									<time class="entry-date-label dt-published" datetime={new Date(entry.data.date).toISOString()}>
 										{
 											new Date(entry.data.date).toLocaleDateString("en-us", {
 												year: "numeric",
@@ -66,7 +68,7 @@ const bottomNavigationContext: BottomNavigationContext = {
 
 						<div class="row-start-2">
 							<div class="mx-auto max-w-screen-md px-6">
-								<div class="p-summary prose-xl prose-neutral font-sans text-dynamic-neutral-900">
+								<div class="p-summary entry-content-copy">
 									{entry.data.description}
 								</div>
 							</div>
@@ -87,15 +89,21 @@ const bottomNavigationContext: BottomNavigationContext = {
 								}
 							</div>
 						</div>
+
+						<div class="row-start-4 lg:col-start-1 lg:row-start-3">
+							<div class="mx-auto max-w-screen-md px-6">
+								<EntryAppreciationSection entryKey={`portfolio:${entry.id}`} kind="kudos" innerClass="max-w-none px-0" />
+							</div>
+						</div>
 					</div>
 				</div>
 			</header>
 		</div>
 
 		<ThemeScope theme="black">
-			<section data-navigation-theme="black" class="e-content flex-1 bg-dynamic-neutral-0 py-24">
+			<CustomSection class="showcase-section" bodyClass="showcase-section-body entry-body e-content" navigationTheme="black">
 				<Content />
-			</section>
+			</CustomSection>
 			<SiteFooter class="border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-600" />
 		</ThemeScope>
 	</article>

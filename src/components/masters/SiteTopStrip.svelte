@@ -1,15 +1,11 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { getPrimaryNavigationLinks } from "./site-navigation/primary-navigation";
 	import { resetSiteTopStripState, siteTopStripState } from "./site-navigation/navigation-chrome";
 	import { resolveIntersectingNavigationTheme } from "./site-navigation/navigation-theme";
 	import SiteNavigationLogo from "./site-navigation/SiteNavigationLogo.svelte";
-	import SiteTopStripMenu from "./site-navigation/SiteTopStripMenu.svelte";
 	import SiteNavigationThemePickerToggle from "./site-navigation/SiteNavigationThemePickerToggle.svelte";
 
 	export let pathname: string;
-
-	$: links = getPrimaryNavigationLinks(pathname);
 
 	let stripShellElement: HTMLElement | null = null;
 	let stripElement: HTMLElement | null = null;
@@ -111,17 +107,7 @@
 				</div>
 
 				<div class="top-strip-right">
-					<nav class="top-strip-nav hidden md:flex" aria-label="Primary">
-						{#each links as link}
-							<a class:is-active={link.isActive} class="top-strip-link" href={link.href} aria-current={link.isActive ? "page" : undefined}>
-								{link.label}
-							</a>
-						{/each}
-					</nav>
-
 					<SiteNavigationThemePickerToggle />
-
-					<SiteTopStripMenu {links} />
 				</div>
 			</div>
 		</div>

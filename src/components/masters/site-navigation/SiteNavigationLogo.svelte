@@ -10,7 +10,7 @@
 	$: ringClassName = contained ? "size-8 animate-logo-ring rounded-full border-2 border-dynamic-neutral-200" : "size-16 animate-logo-ring rounded-full border-4 border-dynamic-neutral-200";
 </script>
 
-<a class={`${anchorClassName} ${className}`.trim()} href="/">
+<a class={`${anchorClassName} ${className}`.trim()} href="/" aria-label="Home">
 	<div class={shellClassName}>
 		<div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
 			<div class={ringClassName}></div>

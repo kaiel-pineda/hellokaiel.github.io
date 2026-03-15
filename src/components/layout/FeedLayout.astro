@@ -1,0 +1,66 @@
+---
+import FeedMasthead from "../content/FeedMasthead.astro";
+import UnifiedFeedEntry from "../content/UnifiedFeedEntry.astro";
+import type { FeedEntry } from "../../utils/feed-entries";
+import { groupFeedEntriesByYear } from "../../utils/feed-entries";
+
+type Props = {
+	emptyDescription?: string;
+	emptyTitle?: string;
+	entries: FeedEntry[];
+	mainClass?: string;
+	mastheadDescription?: string;
+	mastheadSeed?: string;
+	mastheadTitle?: string;
+};
+
+const {
+	emptyDescription = "There are currently no entries available.",
+	emptyTitle = "Empty Index",
+	entries,
+	mainClass = "h-feed",
+	mastheadDescription,
+	mastheadSeed,
+	mastheadTitle,
+} = Astro.props;
+
+const entriesByYear = groupFeedEntriesByYear(entries);
+---
+
+<div class="page-shell">
+	<main class:list={[mainClass, "page-main"]}>
+		{
+			mastheadTitle && (
+				<FeedMasthead
+					description={mastheadDescription}
+					seed={mastheadSeed}
+					title={mastheadTitle}
+				/>
+			)
+		}
+		{
+			entriesByYear.length > 0 ? (
+				<section>
+					<div class="unified-feed-groups">
+						{entriesByYear.map(([year, entriesFromYear]) => (
+							<div class="unified-feed-group">
+								<div class="unified-feed-list">
+									{entriesFromYear.map((entry, index) => <UnifiedFeedEntry entry={entry} yearLabel={index === 0 ? year : undefined} />)}
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+			) : (
+				<section class="unified-feed-empty">
+					<div class="unified-feed-empty-inner">
+						<div class="inline-flex flex-col gap-y-4">
+							<span class="font-display text-base font-semibold leading-normal text-dynamic-neutral-950">{emptyTitle}</span>
+							<span class="font-sans text-base font-normal leading-normal text-dynamic-neutral-700">{emptyDescription}</span>
+						</div>
+					</div>
+				</section>
+			)
+		}
+	</main>
+</div>

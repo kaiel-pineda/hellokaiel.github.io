@@ -1,0 +1,29 @@
+---
+const {
+	as: Tag = "section",
+	bodyClass,
+	class: className,
+	headingClass,
+	innerClass,
+	navigationHide,
+	navigationTheme,
+	title,
+	titleClass,
+	titleTag: TitleTag = "h2",
+} = Astro.props;
+---
+
+<Tag class:list={["custom-section", className]} data-navigation-hide={navigationHide} data-navigation-theme={navigationTheme}>
+	<div class:list={["custom-section-inner", innerClass]}>
+		{
+			title && (
+				<div class:list={["custom-section-heading", headingClass]}>
+					<TitleTag class:list={["custom-section-title", titleClass]}>{title}</TitleTag>
+				</div>
+			)
+		}
+		<div class:list={["custom-section-body", bodyClass]}>
+			<slot />
+		</div>
+	</div>
+</Tag>

@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import type { BottomNavigationContext } from "../../components/masters/site-navigation/bottom-navigation";
 import SiteAuthorCard from "../../components/microformats/SiteAuthorCard.astro";
+import EntryAppreciationSection from "../../components/content/EntryAppreciationSection.astro";
 import DefaultLayout from "../../layouts/DefaultLayout.astro";
 import { getOptionalCollection } from "../../utils/content";
 
@@ -43,8 +44,9 @@ const bottomNavigationContext: BottomNavigationContext = {
 			<h1 class="p-name">{entry.data.title}</h1>
 			{entry.data.description && <p class="p-summary">{entry.data.description}</p>}
 		</div>
-		<div class="e-content">
+		<div class="entry-body e-content">
 			<Content />
 		</div>
+		<EntryAppreciationSection entryKey={`research:${entry.id}`} kind="kudos" />
 	</article>
 </DefaultLayout>

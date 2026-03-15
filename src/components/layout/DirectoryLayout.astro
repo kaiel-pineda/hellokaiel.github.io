@@ -1,0 +1,50 @@
+---
+type Props = {
+	count?: number;
+	mainClass?: string;
+	pluralLabel?: string;
+	singularLabel?: string;
+	title: string;
+};
+
+const {
+	count,
+	mainClass = "",
+	pluralLabel,
+	singularLabel,
+	title,
+} = Astro.props;
+
+const hasCount = typeof count === "number";
+const resolvedPluralLabel = pluralLabel ?? (singularLabel ? `${singularLabel}s` : undefined);
+---
+
+<div class="page-shell">
+	<main class:list={[mainClass]}>
+		<div class="page-main">
+			<div class="page-container">
+				<div class="page-stack">
+					<header class="section-header">
+						<div class="section-heading-stack">
+							<h1 class="section-title">{title}</h1>
+							<div class="section-meta-row">
+								{
+									hasCount && singularLabel && resolvedPluralLabel ? (
+										<span class="section-count">
+											{count}
+											{count === 1 ? singularLabel : resolvedPluralLabel}
+										</span>
+									) : (
+										<span />
+									)
+								}
+							</div>
+						</div>
+					</header>
+
+					<slot />
+				</div>
+			</div>
+		</div>
+	</main>
+</div>

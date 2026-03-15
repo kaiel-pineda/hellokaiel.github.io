@@ -11,9 +11,9 @@ export type BottomNavigationContext = {
 };
 
 const collectionBackLinks: Record<string, BottomNavigationBackLink> = {
-	blog: { href: "/blog/", label: "Back to blog" },
-	portfolio: { href: "/portfolio/", label: "Back to portfolio" },
-	research: { href: "/research/", label: "Back to research" },
+	blog: { href: "/", label: "Back to index" },
+	portfolio: { href: "/", label: "Back to index" },
+	research: { href: "/", label: "Back to index" },
 	categories: { href: "/categories/", label: "Back to categories" },
 	tags: { href: "/tags/", label: "Back to tags" },
 };

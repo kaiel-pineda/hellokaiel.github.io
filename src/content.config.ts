@@ -1,19 +1,6 @@
-import { existsSync, readdirSync } from "node:fs";
-import { resolve } from "node:path";
 import { glob } from "astro/loaders";
 import { defineCollection, z } from "astro:content";
 import { normalizeTaxonomyValues } from "./utils/taxonomy";
-
-const contentPattern = "**/*.{md,mdx}";
-
-const createContentLoader = (base: string) => {
-	const basePath = resolve(base);
-	const hasEntries =
-		existsSync(basePath) &&
-		readdirSync(basePath, { recursive: true, withFileTypes: true }).some((entry) => entry.isFile() && /\.(md|mdx)$/.test(entry.name));
-
-	return hasEntries ? glob({ base, pattern: contentPattern }) : () => [];
-};
 
 const commonSchema = z.object({
 	categories: z.array(z.string()).default(["uncategorized"]).transform((categories) => normalizeTaxonomyValues(categories, { fallback: ["uncategorized"] })),
@@ -24,14 +11,14 @@ const commonSchema = z.object({
 });
 
 const blogCollection = defineCollection({
-	loader: createContentLoader("./src/content/blog"),
+	loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
 	schema: commonSchema.extend({
 		subheading: z.string().optional(),
 	}),
 });
 
 const portfolioCollection = defineCollection({
-	loader: createContentLoader("./src/content/portfolio"),
+	loader: glob({ base: "./src/content/portfolio", pattern: "**/*.{md,mdx}" }),
 	schema: commonSchema.extend({
 		subheading: z.string().optional(),
 		description: z.string(),
@@ -40,7 +27,7 @@ const portfolioCollection = defineCollection({
 });
 
 const researchCollection = defineCollection({
-	loader: createContentLoader("./src/content/research"),
+	loader: glob({ base: "./src/content/research", pattern: "**/*.{md,mdx}" }),
 	schema: commonSchema,
 });
 

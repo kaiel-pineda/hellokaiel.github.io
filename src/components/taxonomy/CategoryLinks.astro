@@ -11,7 +11,7 @@ const { categories, className = "", size = "sm" } = Astro.props;
 const linkClassName = size === "base" ? "link-meta-base" : "link-meta-sm";
 ---
 
-<div class:list={["collection-taxonomy", className]}>
+<div class:list={["entry-taxonomy-list", className]}>
 	{
 		categories.map((category) => (
 			<div class="flex items-center gap-x-3">

@@ -17,11 +17,11 @@ const { emptyDescription, emptyTitle, getHref, items } = Astro.props;
 
 {
 	items.length > 0 ? (
-		<div class="collection-entry-list">
+		<div class="directory-entry-list">
 			{items.map((item) => (
-				<div class="collection-entry">
+				<div class="directory-entry">
 					<div>
-						<a class="link-title link-focus" href={getHref(item.value)}>
+						<a class="directory-entry-link" href={getHref(item.value)}>
 							{item.label}
 						</a>
 					</div>
@@ -35,9 +35,9 @@ const { emptyDescription, emptyTitle, getHref, items } = Astro.props;
 			))}
 		</div>
 	) : (
-		<div class="inline-flex flex-col gap-y-4">
-			<span class="font-display text-base font-semibold leading-normal text-dynamic-neutral-950">{emptyTitle}</span>
-			<span class="font-sans text-base font-normal leading-normal text-dynamic-neutral-700">{emptyDescription}</span>
+		<div class="directory-empty-state">
+			<span class="directory-empty-title">{emptyTitle}</span>
+			<span class="directory-empty-description">{emptyDescription}</span>
 		</div>
 	)
 }

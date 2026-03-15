@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { isSiteNavigationThemePickerOpen, resolvedSiteTheme, siteThemePreference } from "../../global-stores";
 	import { clickOutside } from "../../actions/clickOutside";
-	import { onMount, afterUpdate, tick } from "svelte";
+	import { onMount, tick } from "svelte";
 	import {
 		applySiteThemePreference,
 		defaultSiteThemePreference,
@@ -47,11 +47,9 @@
 		};
 	});
 
-	afterUpdate(() => {
-		if (isMounted && $isSiteNavigationThemePickerOpen) {
-			void tick().then(() => firstButton?.focus());
-		}
-	});
+	$: if (isMounted && $isSiteNavigationThemePickerOpen) {
+		void tick().then(() => firstButton?.focus());
+	}
 </script>
 
 <div class="grid overflow-hidden border-b border-dynamic-neutral-300 bg-dynamic-neutral-100 transition-[grid-template-rows] duration-300 ease-out" style:grid-template-rows={$isSiteNavigationThemePickerOpen ? "1fr" : "0fr"}>
@@ -62,7 +60,7 @@
 			inert={!$isSiteNavigationThemePickerOpen || undefined}
 		>
 			<div class="block w-full whitespace-nowrap overflow-y-hidden overflow-x-auto text-center">
-				{#each ["light", "dark", "black"] as theme}
+				{#each (["light", "dark", "black"] as SiteThemePreference[]) as theme (theme)}
 					<div class="inline-block mr-12">
 						<div class="flex flex-col gap-y-3">
 							<button

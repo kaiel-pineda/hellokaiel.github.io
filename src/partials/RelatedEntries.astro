@@ -1,0 +1,69 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import CustomSection from "../components/content/CustomSection.astro";
+import CollectionTypeMarker from "../components/taxonomy/CollectionTypeMarker.astro";
+import { getOptionalCollection } from "../utils/content";
+
+type Props = {
+	currentEntry: CollectionEntry<"blog" | "portfolio" | "research">;
+};
+
+const { currentEntry } = Astro.props;
+
+const blogEntries = await getCollection("blog");
+const portfolioEntries = await getCollection("portfolio");
+const researchEntries = await getOptionalCollection("research", "./src/content/research");
+
+const allEntries = [...blogEntries, ...portfolioEntries, ...researchEntries];
+
+const relatedEntries = allEntries.filter(
+	(entry) =>
+		entry.id !== currentEntry.id &&
+		(entry.data.categories.some((category) => currentEntry.data.categories.includes(category)) || entry.data.tags.some((tag) => currentEntry.data.tags.includes(tag))),
+);
+---
+
+<CustomSection
+	class="related-entries-section"
+	innerClass="related-entries-section-inner"
+	bodyClass="related-entries-section-body"
+	navigationHide="bottom-dock"
+	title="Also In This Orbit"
+	titleTag="h3"
+>
+	{
+		relatedEntries.length > 0 ? (
+			<div class="related-entries-list">
+				{relatedEntries
+					.sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+					.slice(0, 3)
+					.map((entry) => (
+						<div class="related-entry">
+							<time class="directory-entry-date" datetime={new Date(entry.data.date).toISOString()}>
+								{new Date(entry.data.date).toLocaleDateString("en-us", {
+									year: "numeric",
+									month: "short",
+									day: "numeric",
+								})}
+							</time>
+
+							<div>
+								<a class="directory-entry-link" href={`/${entry.collection}/${entry.id}/`}>
+									{entry.data.title}
+								</a>
+							</div>
+
+							<div class="entry-taxonomy-list">
+								<CollectionTypeMarker collection={entry.collection} />
+							</div>
+						</div>
+					))}
+			</div>
+		) : (
+			<div class="related-entries-empty-state">
+				<span class="font-display text-base font-semibold leading-normal text-dynamic-neutral-950">No Related Entries Available</span>
+				<span class="font-sans font-normal leading-normal text-dynamic-neutral-700">Currently, there are no other entries available under this category.</span>
+			</div>
+		)
+	}
+</CustomSection>

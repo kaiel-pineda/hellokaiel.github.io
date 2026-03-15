@@ -1,0 +1,21 @@
+---
+import CustomSection from "./CustomSection.astro";
+import EntryAppreciation from "./EntryAppreciation.svelte";
+import type { EntryAppreciationKind } from "../../utils/entry-appreciation";
+
+const { bodyClass, class: className, entryKey, innerClass, kind = "kudos" } = Astro.props as {
+	bodyClass?: string;
+	class?: string;
+	entryKey: string;
+	innerClass?: string;
+	kind?: EntryAppreciationKind;
+};
+---
+
+<CustomSection
+	class:list={["entry-appreciation-section", className]}
+	innerClass={["entry-appreciation-inner", innerClass].filter(Boolean).join(" ")}
+	bodyClass={["entry-appreciation-body", bodyClass].filter(Boolean).join(" ")}
+>
+	<EntryAppreciation client:visible entryKey={entryKey} kind={kind} />
+</CustomSection>

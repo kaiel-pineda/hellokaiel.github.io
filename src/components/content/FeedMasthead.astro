@@ -1,0 +1,26 @@
+---
+import FeedMastheadAvatar from "./FeedMastheadAvatar.svelte";
+
+type Props = {
+	description?: string;
+	seed?: string;
+	title: string;
+};
+
+const { description, seed = title, title } = Astro.props;
+---
+
+<header class="feed-masthead h-card">
+	<div class="feed-masthead-inner">
+		<div class="feed-masthead-card">
+			<FeedMastheadAvatar client:load seed={seed} />
+
+			<div class="feed-masthead-copy">
+				<a class="feed-masthead-title p-name u-url" href="/">
+					{title}
+				</a>
+				{description && <p class="feed-masthead-description p-note">{description}</p>}
+			</div>
+		</div>
+	</div>
+</header>

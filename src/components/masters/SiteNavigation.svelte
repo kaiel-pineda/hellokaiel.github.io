@@ -4,27 +4,29 @@
 	import { getBottomNavigationBackLink, type BottomNavigationContext } from "./site-navigation/bottom-navigation";
 	import { isBottomDockVisible } from "./site-navigation/navigation-chrome";
 	import { resolveIntersectingNavigationTheme } from "./site-navigation/navigation-theme";
+	import { shouldHideNavigationElement } from "./site-navigation/navigation-visibility";
 
 	export let pathname: string;
 	export let bottomNavigationContext: BottomNavigationContext | null = null;
 
 	$: backLink = getBottomNavigationBackLink(pathname);
 	$: dockVisible = $isBottomDockVisible;
+	let isHiddenBySection = false;
 	let navigationElement: HTMLElement | null = null;
 
-	function syncNavigationTheme(): void {
+	function syncNavigationState(): void {
 		if (!navigationElement) {
 			return;
 		}
 
 		const navigationTheme = resolveIntersectingNavigationTheme(navigationElement);
+		isHiddenBySection = shouldHideNavigationElement(navigationElement, "bottom-dock");
 
 		if (navigationTheme) {
 			navigationElement.setAttribute("data-theme", navigationTheme);
-			return;
+		} else {
+			navigationElement.removeAttribute("data-theme");
 		}
-
-		navigationElement.removeAttribute("data-theme");
 	}
 
 	function scrollToTop(): void {
@@ -32,19 +34,19 @@
 	}
 
 	onMount(() => {
-		syncNavigationTheme();
-		window.addEventListener("scroll", syncNavigationTheme, { passive: true });
-		window.addEventListener("resize", syncNavigationTheme);
+		syncNavigationState();
+		window.addEventListener("scroll", syncNavigationState, { passive: true });
+		window.addEventListener("resize", syncNavigationState);
 
 		return () => {
-			window.removeEventListener("scroll", syncNavigationTheme);
-			window.removeEventListener("resize", syncNavigationTheme);
+			window.removeEventListener("scroll", syncNavigationState);
+			window.removeEventListener("resize", syncNavigationState);
 		};
 	});
 </script>
 
 <nav class="site-navigation-dock fixed inset-x-0 z-50" bind:this={navigationElement}>
-	<div class={`px-4 transition-[opacity,transform] duration-300 ease-out ${dockVisible ? "pointer-events-none translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}>
+	<div class={`px-4 transition-[opacity,transform] duration-300 ease-out ${dockVisible && !isHiddenBySection ? "pointer-events-none translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"}`}>
 		<div class="mx-auto flex max-w-4xl items-center gap-4">
 			<div class="shrink-0">
 				<a class="floating-action pointer-events-auto" href={backLink.href} aria-label={backLink.label}>
