@@ -163,22 +163,26 @@
 		const revitalized = grid.map((row) => [...row]);
 		const halfWidth = Math.ceil(GRID_SIZE / 2);
 		const anchorRow = 1 + Math.floor(nextRandom() * (GRID_SIZE - 2));
-		const anchorColumn = Math.min(
-			halfWidth - 1,
-			Math.max(0, Math.floor(nextRandom() * halfWidth)),
-		);
+		const minColumn = halfWidth > 2 ? 1 : 0;
+		const maxColumn = halfWidth > 2 ? halfWidth - 2 : halfWidth - 1;
+		const anchorColumn =
+			minColumn === maxColumn
+				? minColumn
+				: minColumn + Math.floor(nextRandom() * (maxColumn - minColumn + 1));
 		const burstPatterns = [
 			[
 				[0, 0],
 				[-1, 0],
 				[1, 0],
 				[0, 1],
+				[0, -1],
 			],
 			[
 				[0, 0],
 				[0, 1],
 				[1, 0],
 				[1, 1],
+				[-1, 0],
 			],
 			[
 				[0, 0],
@@ -191,6 +195,14 @@
 				[0, 0],
 				[-1, 1],
 				[0, 1],
+				[1, 1],
+				[0, -1],
+			],
+			[
+				[0, 0],
+				[-1, -1],
+				[-1, 0],
+				[1, 0],
 				[1, 1],
 			],
 		];
@@ -210,8 +222,13 @@
 		revitalized[0][GRID_SIZE - 1] = false;
 		revitalized[GRID_SIZE - 1][0] = false;
 		revitalized[GRID_SIZE - 1][GRID_SIZE - 1] = false;
+		const mirrored = mirrorGrid(revitalized);
+		if (countAliveCells(mirrored) <= 5) {
+			const fallback = createSeededGrid(`${seed}::${Date.now()}::${behavior.ruleVariant}`);
+			return mirrorGrid(fallback);
+		}
 
-		return mirrorGrid(revitalized);
+		return mirrored;
 	}
 
 	function evolveGrid(grid: Grid, behavior: TemporalBehavior): Grid {
