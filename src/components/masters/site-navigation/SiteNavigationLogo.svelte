@@ -1,22 +1,84 @@
 <script lang="ts">
-	export let contained = false;
 	export let className = "";
 	export { className as class };
-
-	$: anchorClassName = contained ? "group flex size-10 items-center justify-center self-center leading-none" : "group inline-flex";
-	$: shellClassName = contained
-		? "relative isolate flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-dynamic-neutral-950"
-		: "relative isolate flex size-8 shrink-0 items-center justify-center overflow-visible rounded-full border-2 border-dynamic-neutral-950";
-	$: ringClassName = contained ? "size-8 animate-logo-ring rounded-full border-2 border-dynamic-neutral-200" : "size-16 animate-logo-ring rounded-full border-4 border-dynamic-neutral-200";
 </script>
 
-<a class={`${anchorClassName} ${className}`.trim()} href="/" aria-label="Home">
-	<div class={shellClassName}>
-		<div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-			<div class={ringClassName}></div>
-		</div>
-		<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-			<div class="size-6 rounded-full bg-dynamic-neutral-950 transition-opacity duration-300 ease-in-out group-hover:opacity-0 [&:not(:hover)]:animate-logo-inner-grow"></div>
-		</div>
-	</div>
+<a class={`logo ${className}`.trim()} href="/" aria-label="Home">
+	<div class="ring" aria-hidden="true"></div>
+	<div class="inner" aria-hidden="true"></div>
 </a>
+
+<style>
+	.logo {
+		--logo-foreground: rgb(var(--colors-dynamic-neutral-950, 0 0 0));
+		--logo-ring: rgb(var(--colors-dynamic-neutral-950, 0 0 0) / 0.18);
+		margin: 8px 0;
+		flex: 0 0 32px;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 32px;
+		min-height: 32px;
+		min-width: 32px;
+		width: 32px;
+		border: 2px solid var(--logo-foreground);
+		border-radius: 50%;
+		line-height: 1;
+		overflow: visible;
+		contain: layout;
+	}
+
+	.ring {
+		position: absolute;
+		height: 64px;
+		width: 64px;
+		border: solid 4px var(--logo-ring);
+		border-radius: 50%;
+		pointer-events: none;
+		animation: logo-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+	}
+
+	.inner {
+		height: 24px;
+		width: 24px;
+		box-shadow: inset 0 0 0 24px var(--logo-foreground);
+		border-radius: 50%;
+		animation: logo-pulse 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+	}
+
+	.logo:focus .inner,
+	.logo:hover .inner {
+		display: none;
+	}
+
+	@keyframes logo-ring {
+		0% {
+			transform: scale(0.5);
+		}
+
+		60% {
+			opacity: 0;
+		}
+
+		70% {
+			transform: scale(1);
+			opacity: 0;
+		}
+
+		100% {
+			transform: scale(1);
+			opacity: 0;
+		}
+	}
+
+	@keyframes logo-pulse {
+		0% {
+			transform: scale(0.5);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+</style>

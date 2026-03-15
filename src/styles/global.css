@@ -6,6 +6,7 @@
 	--floating-control-size: 3.5rem;
 	--entry-readable-width: 48rem;
 	--unified-feed-year-rail-gap: 5rem;
+	--top-strip-height: 4.5rem;
 	--root-font-size: 0.875rem;
 	--root-line-height: 1.5;
 	--type-scale-ratio: 1.18;
@@ -166,12 +167,16 @@
 		@apply fixed inset-x-0 top-0 z-40 transition-transform duration-300 ease-out;
 	}
 
+	.site-top-strip-shell {
+		block-size: var(--top-strip-height);
+	}
+
 	.top-strip-is-hidden {
 		@apply -translate-y-full;
 	}
 
 	.top-strip-inner {
-		@apply flex min-h-16 items-center justify-between gap-6 py-3;
+		@apply flex min-h-14 items-center justify-between gap-6 py-2;
 	}
 
 	.top-strip-left {

@@ -7,24 +7,20 @@
 
 	export let pathname: string;
 
+	const TOP_STRIP_HEIGHT = 72;
+
 	let stripShellElement: HTMLElement | null = null;
 	let stripElement: HTMLElement | null = null;
-	let stripHeight = 0;
 	let isPinned = false;
 	let isVisible = true;
 	let lastScrollY = 0;
 
 	function syncChromeState(): void {
 		siteTopStripState.set({
-			height: stripHeight,
+			height: TOP_STRIP_HEIGHT,
 			isPinned,
 			isVisible,
 		});
-	}
-
-	function syncStripHeight(): void {
-		stripHeight = stripElement?.offsetHeight ?? 0;
-		syncChromeState();
 	}
 
 	function syncTopStripState(): void {
@@ -62,32 +58,17 @@
 	}
 
 	onMount(() => {
-		syncStripHeight();
 		lastScrollY = window.scrollY;
 		syncTopStripState();
 		syncNavigationTheme();
-
-		const resizeObserver =
-			typeof ResizeObserver !== "undefined" && stripElement
-				? new ResizeObserver(() => {
-						syncStripHeight();
-						syncTopStripState();
-						syncNavigationTheme();
-					})
-				: null;
-
-		resizeObserver?.observe(stripElement);
 		window.addEventListener("scroll", syncTopStripState, { passive: true });
 		window.addEventListener("scroll", syncNavigationTheme, { passive: true });
-		window.addEventListener("resize", syncStripHeight);
 		window.addEventListener("resize", syncTopStripState);
 		window.addEventListener("resize", syncNavigationTheme);
 
 		return () => {
-			resizeObserver?.disconnect();
 			window.removeEventListener("scroll", syncTopStripState);
 			window.removeEventListener("scroll", syncNavigationTheme);
-			window.removeEventListener("resize", syncStripHeight);
 			window.removeEventListener("resize", syncTopStripState);
 			window.removeEventListener("resize", syncNavigationTheme);
 			resetSiteTopStripState();
@@ -95,7 +76,7 @@
 	});
 </script>
 
-<div class="site-top-strip-shell" bind:this={stripShellElement} style:height={stripHeight ? `${stripHeight}px` : undefined}>
+<div class="site-top-strip-shell" bind:this={stripShellElement}>
 	<div
 		class={`top-strip ${isPinned ? "top-strip-fixed" : ""} ${isPinned && !isVisible ? "top-strip-is-hidden" : ""}`}
 		bind:this={stripElement}

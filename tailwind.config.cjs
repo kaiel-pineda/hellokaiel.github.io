@@ -3,39 +3,9 @@ module.exports = {
 	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
 	theme: {
 		extend: {
-			animation: {
-				"logo-ring": "logo-ring 800ms cubic-bezier(0.4, 0, 0.2, 1) both",
-				"logo-inner-grow": "logo-inner-grow 250ms cubic-bezier(0.4, 0, 0.2, 1) forwards",
-			},
 			fontFamily: {
 				display: ['"Inter Variable"', "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
 				sans: ['"Roboto Flex Variable"', "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
-			},
-			keyframes: {
-				"logo-inner-grow": {
-					"0%": {
-						"-webkit-transform": "scale(0)",
-						transform: "scale(0)",
-						opacity: "0",
-					},
-					"100%": {
-						"-webkit-transform": "scale(1)",
-						transform: "scale(1)",
-						opacity: "1",
-					},
-				},
-				"logo-ring": {
-					"0%": {
-						"-webkit-transform": "scale(0.5)",
-						transform: "scale(0.5)",
-						opacity: "1",
-					},
-					"100%": {
-						"-webkit-transform": "scale(1)",
-						transform: "scale(1)",
-						opacity: "0",
-					},
-				},
 			},
 		},
 	},
