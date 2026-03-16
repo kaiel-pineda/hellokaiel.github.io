@@ -6,6 +6,7 @@
 	import SiteNavigationThemePickerToggle from "./site-navigation/SiteNavigationThemePickerToggle.svelte";
 
 	export let pathname: string;
+	export let showThemePicker = true;
 
 	const TOP_STRIP_HEIGHT = 72;
 
@@ -88,7 +89,9 @@
 				</div>
 
 				<div class="top-strip-right">
-					<SiteNavigationThemePickerToggle />
+					{#if showThemePicker}
+						<SiteNavigationThemePickerToggle />
+					{/if}
 				</div>
 			</div>
 		</div>

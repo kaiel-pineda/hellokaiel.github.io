@@ -1,14 +1,14 @@
 ---
+import { render } from "astro:content";
 import CollectionTypeMarker from "../taxonomy/CollectionTypeMarker.astro";
 import EntryTaxonomy from "../taxonomy/EntryTaxonomy.astro";
-import { getFeedEntrySummary, type FeedEntry } from "../../utils/feed-entries";
+import type { FeedEntry } from "../../utils/feed-entries";
 
 const { entry } = Astro.props as {
 	entry: FeedEntry;
 	yearLabel?: string;
 };
-
-const summary = getFeedEntrySummary(entry);
+const { Content } = await render(entry.sourceEntry);
 ---
 
 <article class="unified-feed-entry h-entry">
@@ -38,7 +38,33 @@ const summary = getFeedEntrySummary(entry);
 				</a>
 			</h2>
 
-			{summary && <p class="p-summary entry-summary unified-feed-summary">{summary}</p>}
+			{
+				entry.collection === "portfolio" ? (
+					<div class="entry-preview unified-feed-preview">
+						<p class="p-summary entry-content-copy unified-feed-preview-copy">
+							{entry.description}
+						</p>
+					</div>
+				) : (
+					<div class="entry-preview unified-feed-preview">
+						<div class="entry-preview-content">
+							<Content />
+						</div>
+					</div>
+				)
+			}
+
+			<div class="unified-feed-actions">
+				<a class="unified-feed-continue link-focus" href={entry.href}>
+					Continue reading
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+						<path
+							fill-rule="evenodd"
+							d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+						></path>
+					</svg>
+				</a>
+			</div>
 
 			<div class="unified-feed-meta">
 				<CollectionTypeMarker collection={entry.collection} className="unified-feed-collection-marker" />

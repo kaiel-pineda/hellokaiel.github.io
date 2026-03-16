@@ -4,14 +4,15 @@
 </script>
 
 <a class={`logo ${className}`.trim()} href="/" aria-label="Home">
-	<div class="ring" aria-hidden="true"></div>
-	<div class="inner" aria-hidden="true"></div>
+	<div class="logo-ring" aria-hidden="true"></div>
+	<div class="logo-inner" aria-hidden="true"></div>
 </a>
 
 <style>
 	.logo {
 		--logo-foreground: rgb(var(--colors-dynamic-neutral-950, 0 0 0));
 		--logo-ring: rgb(var(--colors-dynamic-neutral-950, 0 0 0) / 0.18);
+		color: var(--logo-foreground);
 		margin: 8px 0;
 		flex: 0 0 32px;
 		position: relative;
@@ -29,7 +30,7 @@
 		contain: layout;
 	}
 
-	.ring {
+	.logo-ring {
 		position: absolute;
 		height: 64px;
 		width: 64px;
@@ -39,7 +40,7 @@
 		animation: logo-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 	}
 
-	.inner {
+	.logo-inner {
 		height: 24px;
 		width: 24px;
 		box-shadow: inset 0 0 0 24px var(--logo-foreground);
@@ -47,8 +48,8 @@
 		animation: logo-pulse 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) both;
 	}
 
-	.logo:focus .inner,
-	.logo:hover .inner {
+	.logo:focus .logo-inner,
+	.logo:hover .logo-inner {
 		display: none;
 	}
 

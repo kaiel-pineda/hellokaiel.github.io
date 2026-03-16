@@ -3,7 +3,7 @@ import SiteFooter from "../components/masters/SiteFooter.astro";
 import DefaultLayout from "../layouts/DefaultLayout.astro";
 ---
 
-<DefaultLayout title='Page Not Found' theme='edgerunner' seo={{ description: "The page you requested could not be found.", noindex: true }}>
+<DefaultLayout title='Page Not Found' theme='edgerunner' showThemePicker={false} seo={{ description: "The page you requested could not be found.", noindex: true }}>
 	<div class='flex flex-1 bg-dynamic-neutral-0'>
 		<main class='container mx-auto flex flex-1 items-center px-6'>
 			<div class='inline-flex flex-col gap-y-3'>
@@ -11,10 +11,11 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
 					<span class='font-display text-3xl font-semibold leading-normal text-[#fa3a8c]'>Blackwall Breach Detected</span>
 					<span class='font-display text-sm font-normal leading-normal text-[#fa3a8c]'>//ERROR_404</span>
 				</div>
-				<span class='max-w-4xl font-sans text-xl font-normal leading-normal text-[#ea1866]'>
-					Whoa there, choom! Looks like you've gonked some Black ICE daemons and your desired page has flatlined. This node was fried in the DataKrash, drifting lost in cyberspace. Delta now or Netwatch will zero your connection. Stay
-					preem, netrunner; the digital frontier is a wild nova ride.
-				</span>
+				<div class='max-w-4xl font-sans text-xl font-normal leading-normal text-[#ea1866]'>
+					<p>Whoa there, choom. Looks like you've gonked on some Black ICE daemons and your page flatlined mid-run. This node was fried in the DataKrash, drifting lost in cyberspace.</p>
+					<p>Delta before NetWatch clocks the traffic, and zeroes your connection!</p>
+					<p>Stay preem, netrunner; the digital frontier is a wild nova ride.</p>
+				</div>
 			</div>
 		</main>
 	</div>
@@ -36,5 +37,13 @@ import DefaultLayout from "../layouts/DefaultLayout.astro";
 		--colors-dynamic-neutral-800: 159 240 225;
 		--colors-dynamic-neutral-900: 207 248 239;
 		--colors-dynamic-neutral-950: 55 202 184;
+	}
+
+	[data-theme="edgerunner"] footer {
+		color: #ea1866;
+	}
+
+	[data-theme="edgerunner"] main p + p {
+		margin-top: 1.5rem;
 	}
 </style>

@@ -10,6 +10,7 @@ export type FeedEntry = {
 	description?: string;
 	href: string;
 	id: string;
+	sourceEntry: ContentEntry;
 	subheading?: string;
 	tags: string[];
 	title: string;
@@ -25,14 +26,11 @@ function toFeedEntry(entry: ContentEntry): FeedEntry {
 		description: entry.data.description,
 		href: `/${entry.collection}/${entry.id}/`,
 		id: entry.id,
+		sourceEntry: entry,
 		subheading: "subheading" in entry.data ? entry.data.subheading : undefined,
 		tags: entry.data.tags,
 		title: entry.data.title,
 	};
-}
-
-export function getFeedEntrySummary(entry: FeedEntry): string | undefined {
-	return entry.description ?? entry.subheading;
 }
 
 export async function getUnifiedFeedEntries(): Promise<FeedEntry[]> {

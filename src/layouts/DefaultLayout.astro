@@ -14,9 +14,11 @@ const { title, theme = "inherit", showBottomNavigation = true, bottomNavigationC
 	title?: string;
 	theme?: ThemeScopeValue;
 	showBottomNavigation?: boolean;
+	showThemePicker?: boolean;
 	bottomNavigationContext?: BottomNavigationContext | null;
 	seo?: SeoMetadata;
 };
+const { showThemePicker = true } = Astro.props as { showThemePicker?: boolean };
 const seo = resolveSeoMetadata({
 	metadata: seoInput,
 	pathname: Astro.url.pathname,
@@ -98,8 +100,8 @@ const seo = resolveSeoMetadata({
 	</head>
 	<body class="invisible">
 		<ThemeScope as="div" id="site-page" class="flex min-h-screen flex-col bg-dynamic-neutral-0" theme={theme}>
-			<SiteNavigationThemePicker client:idle />
-			<SiteTopStrip client:load pathname={Astro.url.pathname} />
+			{showThemePicker && <SiteNavigationThemePicker client:idle />}
+			<SiteTopStrip client:load pathname={Astro.url.pathname} showThemePicker={showThemePicker} />
 			<slot />
 			{showBottomNavigation && <SiteNavigation client:load pathname={Astro.url.pathname} bottomNavigationContext={bottomNavigationContext} />}
 		</ThemeScope>
