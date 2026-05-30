@@ -9,7 +9,7 @@ import { buildTagIndex, getTagHref } from "../../utils/tags";
 const tags = buildTagIndex(await getAllContentEntries());
 ---
 
-<DefaultLayout title="Tags" showBottomNavigation={false} seo={{ description: "Browse tags across articles, projects, and research." }}>
+<DefaultLayout title="Tags" seo={{ description: "Browse tags across articles, projects, and research." }}>
 	<DirectoryLayout count={tags.length} pluralLabel="tags" singularLabel="tag" title="Tags">
 		<section>
 			<TaxonomySummaryList

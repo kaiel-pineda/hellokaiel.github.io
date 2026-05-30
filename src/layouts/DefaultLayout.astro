@@ -10,7 +10,7 @@ import type { BottomNavigationContext } from "../components/masters/site-navigat
 import { resolveSeoMetadata, type SeoMetadata } from "../utils/seo";
 import { defaultSiteThemePreference, LEGACY_SITE_THEME_STORAGE_KEY, SITE_THEME_STORAGE_KEY, type ThemeScopeValue } from "../utils/theme";
 import { siteAuthorName, siteLocale, siteName } from "../utils/site";
-const { title, theme = "inherit", showBottomNavigation = true, bottomNavigationContext = null, seo: seoInput } = Astro.props as {
+const { title, theme = "inherit", showBottomNavigation = false, bottomNavigationContext = null, seo: seoInput } = Astro.props as {
 	title?: string;
 	theme?: ThemeScopeValue;
 	showBottomNavigation?: boolean;

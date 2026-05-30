@@ -109,13 +109,13 @@
 	}
 
 	.floating-action {
-		@apply inline-flex items-center justify-center border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-200 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
+		@apply inline-flex items-center justify-center border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-75 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
 		inline-size: var(--floating-control-size);
 		block-size: var(--floating-control-size);
 	}
 
 	.floating-action-sm {
-		@apply inline-flex size-10 items-center justify-center rounded-full border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-200 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
+		@apply inline-flex size-10 items-center justify-center rounded-full border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-75 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
 	}
 
 	.bottom-navigation-bar {
@@ -161,10 +161,12 @@
 
 	.top-strip {
 		@apply w-full border-b border-dynamic-neutral-300 bg-dynamic-neutral-0;
+		transition: color 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out, fill 80ms ease-out, stroke 80ms ease-out;
 	}
 
 	.top-strip-fixed {
-		@apply fixed inset-x-0 top-0 z-40 transition-transform duration-300 ease-out;
+		@apply fixed inset-x-0 top-0 z-40;
+		transition: transform 300ms ease-out, color 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out, fill 80ms ease-out, stroke 80ms ease-out;
 	}
 
 	.site-top-strip-shell {

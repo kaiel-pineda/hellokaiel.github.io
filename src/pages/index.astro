@@ -8,7 +8,7 @@ import { siteAuthorName, siteIdentitySeed, siteMastheadDescription } from "../ut
 const entries = await getUnifiedFeedEntries();
 ---
 
-<DefaultLayout title="Index" showBottomNavigation={false} seo={{ description: "A unified index of writing, projects, and research by Karl Pineda." }}>
+<DefaultLayout title="Index" seo={{ description: "A unified index of writing, projects, and research by Karl Pineda." }}>
 	<FeedLayout
 		entries={entries}
 		mastheadDescription={siteMastheadDescription}

@@ -9,7 +9,7 @@ import { getAllContentEntries } from "../../utils/content-entries";
 const categories = buildCategoryIndex(await getAllContentEntries());
 ---
 
-<DefaultLayout title="Categories" showBottomNavigation={false} seo={{ description: "Browse content categories across articles, projects, and research." }}>
+<DefaultLayout title="Categories" seo={{ description: "Browse content categories across articles, projects, and research." }}>
 	<DirectoryLayout count={categories.length} pluralLabel="categories" singularLabel="category" title="Categories">
 		<section>
 			<TaxonomySummaryList
