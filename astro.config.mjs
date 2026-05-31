@@ -11,4 +11,9 @@ export default defineConfig({
 	site: "https://hellokaiel.us",
 	integrations: [svelte(), mdx(), sitemap()],
 	prefetch: false,
+	vite: {
+		resolve: {
+			noExternal: ["bits-ui"],
+		},
+	},
 });
