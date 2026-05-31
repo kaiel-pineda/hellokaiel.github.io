@@ -13,7 +13,7 @@ export default defineConfig({
 	prefetch: false,
 	vite: {
 		resolve: {
-			noExternal: ["bits-ui"],
+			noExternal: ["bits-ui", "svelte-toolbelt", "runed"],
 		},
 	},
 });
