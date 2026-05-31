@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+}
+
 :root {
 	--floating-control-size: 3.5rem;
 	--entry-readable-width: 48rem;
@@ -20,7 +25,7 @@
 	--type-body-leading: 1.75;
 	--type-title-size: var(--type-step-2);
 	--type-display-size: var(--type-step-3);
-	--type-masthead-title-size: var(--type-step-1);
+	--type-masthead-title-size: var(--type-step-2);
 	--type-masthead-description-size: var(--type-step-1);
 	--type-display-leading: 1.05;
 	--type-title-leading: 1.2;
@@ -109,13 +114,63 @@
 	}
 
 	.floating-action {
-		@apply inline-flex items-center justify-center border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-75 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
+		@apply inline-flex items-center justify-center border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
 		inline-size: var(--floating-control-size);
 		block-size: var(--floating-control-size);
 	}
 
 	.floating-action-sm {
-		@apply inline-flex size-10 items-center justify-center rounded-full border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 transition-colors duration-75 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
+		@apply inline-flex size-10 items-center justify-center rounded-full border border-dynamic-neutral-300 bg-dynamic-neutral-0 text-dynamic-neutral-800 hover:text-dynamic-neutral-950 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-dynamic-neutral-950;
+	}
+
+	.scroll-area {
+		@apply relative overflow-hidden;
+	}
+
+	.scroll-area:has([data-scroll-area-scrollbar][data-orientation="horizontal"]) {
+		padding-bottom: calc(var(--scroll-area-bar-height, 6px) + var(--scroll-area-bar-gap, 8px));
+	}
+
+	.scroll-area-viewport {
+		@apply w-full;
+	}
+
+	.scroll-area-scrollbar {
+		@apply flex touch-none select-none;
+	}
+
+	.scroll-area-scrollbar-x {
+		@apply flex-col;
+		height: var(--scroll-area-bar-height, 6px);
+		background-image: linear-gradient(
+			to bottom,
+			transparent calc(50% - 0.5px),
+			var(--scroll-area-track-color, theme("colors.dynamic-neutral.950")) calc(50% - 0.5px),
+			var(--scroll-area-track-color, theme("colors.dynamic-neutral.950")) calc(50% + 0.5px),
+			transparent calc(50% + 0.5px)
+		);
+	}
+
+	.scroll-area-scrollbar-y {
+		@apply flex-row;
+		width: var(--scroll-area-bar-height, 6px);
+		background-image: linear-gradient(
+			to right,
+			transparent calc(50% - 0.5px),
+			var(--scroll-area-track-color, theme("colors.dynamic-neutral.950")) calc(50% - 0.5px),
+			var(--scroll-area-track-color, theme("colors.dynamic-neutral.950")) calc(50% + 0.5px),
+			transparent calc(50% + 0.5px)
+		);
+	}
+
+	.scroll-area-thumb {
+		@apply relative flex-1;
+		border-radius: 0;
+		background-color: var(--scroll-area-thumb-color, theme("colors.dynamic-neutral.950"));
+	}
+
+	.scroll-area-corner {
+		@apply bg-dynamic-neutral-100;
 	}
 
 	.bottom-navigation-bar {
@@ -161,12 +216,10 @@
 
 	.top-strip {
 		@apply w-full border-b border-dynamic-neutral-300 bg-dynamic-neutral-0;
-		transition: color 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out, fill 80ms ease-out, stroke 80ms ease-out;
 	}
 
 	.top-strip-fixed {
-		@apply fixed inset-x-0 top-0 z-40;
-		transition: transform 300ms ease-out, color 80ms ease-out, background-color 80ms ease-out, border-color 80ms ease-out, fill 80ms ease-out, stroke 80ms ease-out;
+		@apply fixed inset-x-0 top-0 z-40 transition-transform duration-300 ease-out;
 	}
 
 	.site-top-strip-shell {

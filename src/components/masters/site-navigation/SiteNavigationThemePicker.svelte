@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ScrollArea from "../../ui/ScrollArea.svelte";
 	import { isSiteNavigationThemePickerOpen, resolvedSiteTheme, siteThemePreference } from "../../global-stores";
 	import { clickOutside } from "../../actions/clickOutside";
 	import { onMount, tick } from "svelte";
@@ -59,7 +60,8 @@
 			style:transform={$isSiteNavigationThemePickerOpen ? "translateY(0)" : "translateY(calc(-100% - 1px))"}
 			inert={!$isSiteNavigationThemePickerOpen || undefined}
 		>
-			<div class="block w-full whitespace-nowrap overflow-y-hidden overflow-x-auto text-center">
+			<ScrollArea class="w-full" orientation="horizontal">
+			<div class="whitespace-nowrap text-center">
 				{#each (["light", "dark", "black"] as SiteThemePreference[]) as theme (theme)}
 					<div class="inline-block mr-12">
 						<div class="flex flex-col gap-y-3">
@@ -139,6 +141,7 @@
 					</div>
 				</div>
 			</div>
+			</ScrollArea>
 		</div>
 	</div>
 </div>

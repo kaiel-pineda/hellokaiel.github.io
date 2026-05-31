@@ -1,4 +1,5 @@
 import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
 import { defineConfig } from "astro/config";
 import { EventEmitter } from "node:events";
@@ -8,5 +9,6 @@ EventEmitter.defaultMaxListeners = 20;
 
 export default defineConfig({
 	site: "https://hellokaiel.us",
-	integrations: [svelte(), mdx()],
+	integrations: [svelte(), mdx(), sitemap()],
+	prefetch: false,
 });
